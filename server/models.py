@@ -11,6 +11,8 @@ class User (db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(), unique=True, nullable=False)
+    first_name = db.Column(db.String(), nullable=False)
+    last_name = db.Column(db.String(), nullable=False)
     email = db.Column(db.String(), unique=True, nullable=False)
     _hashed_password = db.Column(db.String(), nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
@@ -22,9 +24,24 @@ class User (db.Model, SerializerMixin):
     #Validate username
     @validates('username')
     def validate_username(self, key, username):
-        if not username or len(username) < 4 :
-            raise ValueError("Username must be at least 4 characters long")
+        username_regex = r'^[a-zA-Z][a-zA-Z0-9]{3,}$'
+        if not username:
+            raise ValueError("Username is required.")
+        
+        if not re.match(username_regex, username):
+            raise ValueError('Username must be at least 4 characters long, start with a letter, and contain only letters and numbers.')
+        
         return username
+    
+    #Validate first and last name
+    @validates('first_name', 'last_name')
+    def validate_name(self, key, name):
+        name_regex = r"^[a-zA-Z]+$"
+        if not name:
+            raise ValueError("First and last names are required.")
+        
+        if not re.match(name_regex, name):
+            raise ValueError(f'{key.replace("_", " ").capitalize()} should only contain letters')
     
     @validates('email')
     def validate_email(self, key, email):
