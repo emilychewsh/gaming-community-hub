@@ -4,6 +4,7 @@ from sqlalchemy.orm import validates
 from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy.ext.hybrid import hybrid_property
 from datetime import datetime
+import re
 
 class User (db.Model, SerializerMixin):
     __tablename__ = "users"
@@ -18,6 +19,42 @@ class User (db.Model, SerializerMixin):
     games = association_proxy("favourites", "game", creator=lambda g: Favourite(game=g))
     reviews = db.relationship("Review", backref="author")
 
+    #Validate username
+    @validates('username')
+    def validate_username(self, key, username):
+        if not username or len(username) < 4 :
+            raise ValueError("Username must be at least 4 characters long")
+        return username
+    
+    @validates('email')
+    def validate_email(self, key, email):
+        email_regex =  r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"
+
+        if not email:
+            raise ValueError("Email is required")
+        
+        if User.query.filter(User.email == email):
+            raise ValueError("Email already taken")
+        
+        if not re.match(email_regex, email):
+            raise ValueError("Email not valid")
+        
+        return email
+        
+
+    #Validations for password settings
+    @hybrid_property
+    def password(self):
+        raise ValueError('Forbidden access...')
+    
+    @password.setter
+    def password(self, plain_password):
+        password_hash = bcrypt.generate_password_hash(plain_password.encode('utf-8'))
+
+        self._hashed_password = password_hash.decode('utf-8')
+
+    def authenticate_password(self, plain_password):
+        return bcrypt.check_password_hash(self._hashed_password, plain_password.encode('utf-8'))
 
     def __repr__(self):
         return f"<User: {self.username}>"
