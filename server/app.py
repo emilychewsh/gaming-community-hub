@@ -1,5 +1,6 @@
 from flask import make_response
 from config import app, api_bp
+from models import User, Game, Favourite, Review, ReviewLike
 
 # Register the API blueprint
 app.register_blueprint(api_bp, url_prefix='/api')
