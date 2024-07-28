@@ -24,6 +24,7 @@ class UserSignup(Resource):
         
         return make_response({"error":"User signup unsuccessful"}, 400)
     
+    
 class UserLogin(Resource):
     def post(self):
         
@@ -35,29 +36,72 @@ class UserLogin(Resource):
             if username and password:
                 user = User.query.filter(User.username == username).first()
 
-                if user and user.authenticate(password):
+                if user and user.authenticate_password(password):
                     session['user_id'] = user.id
-                    return make_response({"message": f"User {user.first_name} logged in!"})
+                    return make_response({"message": f"Welcome {user.first_name.title()}, you have successfully logged in!"}, 200)
 
                 else:
                     return make_response({"error": "Unauthorised"}, 401)
 
             else:
-                return make_response({"error": "username and password are required to login. Please try again"}, 404)
+                return make_response({"error": "Username and password are required to login. Please try again"}, 400)
             
-        return make_response({"error": "User already logged in"}, 404)
-            
+        return make_response({"error": "User already logged in"}, 400)
+
+
 class UserLogout(Resource):
     def delete(self):
         session.pop('user_id', None)
 
         return make_response({"message": "Logout successful"}, 200)
 
-class CheckSession(Resource):
+
+class UserAccount(Resource):
     def get(self):
+
+        if 'user_id' not in session:
+            return make_response({"error": {"No user logged in. Please log into your account."}}, 403)
+        
+        user_id = session['user_id']
         user = User.query.filter(User.id == session['user_id']).first()
 
         if user:
             return make_response(user.to_dict(), 200)
         
-        return make_response({"error": "No user signed in..."}, 401)
+
+        return make_response({"message": "No user found."}, 403)
+    
+    def patch(self):
+
+        if 'user_id' not in session:
+            return make_response({"error": {"No user logged in. Please log into your account."}}, 403)
+        
+        user_id = session['user_id']
+        user = User.query.filter(User.id == session['user_id']).first()
+
+        if user:
+            for attr in request.json:
+                setattr(user, attr, request.json[attr])
+
+            db.session.commit()
+            return make_response(user.to_dict(), 203)
+        
+        return make_response({"message": "No user found"}, 404)
+        
+    def delete(self):
+
+        if 'user_id' not in session:
+            return make_response({"error": {"No user logged in. Please log into your account."}}, 403)
+        
+        user_id = session['user_id']
+        user = User.query.filter(User.id == session['user_id']).first()
+
+        if user:
+            db.session.delete(user)
+            db.session.commit()
+            session.pop('user_id', None)
+
+            return make_response({"message": "User account deleted successfully."}, 200)
+        
+
+        return make_response({"message": "No user found"}, 404)
