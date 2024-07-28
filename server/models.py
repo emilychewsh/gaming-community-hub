@@ -42,15 +42,17 @@ class User (db.Model, SerializerMixin):
         
         if not re.match(name_regex, name):
             raise ValueError(f'{key.replace("_", " ").capitalize()} should only contain letters')
+        
+        return name
     
     @validates('email')
     def validate_email(self, key, email):
-        email_regex =  r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"
+        email_regex =  r'^[A-Za-z.0-9+@[A-Za-z0-9.]+\.[A-Za-z]{2,7}$'
 
         if not email:
             raise ValueError("Email is required")
         
-        if User.query.filter(User.email == email):
+        if User.query.filter(User.email == email).first():
             raise ValueError("Email already taken")
         
         if not re.match(email_regex, email):
@@ -62,7 +64,7 @@ class User (db.Model, SerializerMixin):
     #Validations for password settings
     @hybrid_property
     def password(self):
-        raise ValueError('Forbidden access...')
+        return self._hashed_password
     
     @password.setter
     def password(self, plain_password):

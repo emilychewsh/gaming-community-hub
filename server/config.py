@@ -19,5 +19,4 @@ migrate = Migrate(app, db)
 CORS(app)
 
 #Blueprint setup for RESTful API
-api_bp= Blueprint('api', __name__)
-api = Api(api_bp)
+api = Api(app)
