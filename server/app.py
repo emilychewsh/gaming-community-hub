@@ -2,6 +2,7 @@ from flask import make_response
 from config import app, api
 from models import User, Game, Favourite, Review, ReviewLike
 from controllers.user_controller import UserSignup, UserLogin, UserLogout, UserAccount
+from controllers.admin_game_controller import CheckAdmin
 
 
 
@@ -14,6 +15,8 @@ api.add_resource(UserSignup, '/user/signup')
 api.add_resource(UserLogin, '/user/login')
 api.add_resource(UserLogout, '/user/logout')
 api.add_resource(UserAccount, '/user/account')
+
+#Admin Game Controller
 
 if __name__ == "__main__":
     app.run(port=4000, debug=True)

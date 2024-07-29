@@ -1,5 +1,5 @@
 from flask_restful import Resource
-from config import db, bcrypt
+from config import db
 from flask import make_response, session, request
 from models import User
 
@@ -12,7 +12,8 @@ class UserSignup(Resource):
             email = request.json.get('email'),
             first_name = request.json.get('first_name'),
             last_name = request.json.get('last_name'),
-            password = request.json.get('password')
+            password = request.json.get('password'),
+            is_admin = bool(request.json.get('is_admin', False)) #convert to boolean, defaults False if nothing provided
         )
 
         db.session.add(user)
