@@ -5,7 +5,7 @@ from flask import make_response, session, request
 from datetime import datetime
 
 
-class CheckAdmin(Resource):
+class AdminBaseResource(Resource):
     def is_admin(self, user_id):
         if not user_id: 
             return False
@@ -16,7 +16,7 @@ class CheckAdmin(Resource):
         
         return True
 
-class AdminAddGame(Resource):
+class AdminAddGame(AdminBaseResource):
     def post(self):
         user_id = session.get('user_id')
         
@@ -44,14 +44,14 @@ class AdminAddGame(Resource):
 
         return make_response(game.to_dict(), 201)
     
-class AdminUpdateGame(Resource):
+class AdminUpdateGame(AdminBaseResource):
     def patch(self, game_id):
         user_id = session.get('user_id')
 
         if not user_id or not self.is_admin(user_id):
             return make_response({"error": "Admin access required"}, 403)
         
-        game = Game.query.get(game_id).first()
+        game = Game.query.get(game_id)
         if not game:
             return make_response({"error": "Game not Found"}, 404)
         
@@ -62,17 +62,27 @@ class AdminUpdateGame(Resource):
         return make_response(game.to_dict(), 200)
         
 
-class AdminDeleteGame(Resource):
+class AdminDeleteGame(AdminBaseResource):
     def delete(self, game_id):
         user_id = session.get('user_id')
 
         if not user_id or not self.is_admin(user_id):
             return make_response({"error": "Admin access required"}, 403)
         
-        game = Game.query.get(game_id).first()
+        game = Game.query.get(game_id)
         if not game:
             return make_response({"error": "Game not Found"}, 404)
         
         db.session.delete(game)
         db.session.commit()
         return make_response({"message": "Game deleted successfully"}, 200)
+
+class AdminLogout(AdminBaseResource):
+    def delete(self):
+        user_id = session.get('user_id')
+
+        if not user_id or not self.is_admin(user_id):
+            return make_response({"error": "Admin access required"}, 403)
+        
+        session.pop('user_id', None)
+        return make_response({"message": "Admin logout successful"}, 200)
