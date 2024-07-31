@@ -54,3 +54,29 @@ class ReviewController(Resource):
         db.session.add(review)
         db.session.commit()
         return make_response({"message": "Review posted!"}, 201)
+    
+    def delete(self):
+        user_id = session.get('user_id')
+        game_id = request.json.get('game_id')
+
+        if not user_id:
+            return make_response({"error": "User not logged in. Please sign in."}, 401)
+        
+        if not game_id:
+            return make_response({"error": "Game ID required. Please enter valid Game ID"}, 401)
+        
+        user = User.query.get(user_id)
+        if not user:
+            return make_response({"error": "User not found. Please try again"}, 404)
+        
+        game = Game.query.get(game_id)
+        if not game:
+            return make_response({"error": "Game not Found"}, 404)
+        
+        review = Review.query.filter_by(user_id=user_id, game_id=game_id).first()
+        if not review:
+            return make_response({"error": "Review not found"}, 404)
+        
+        db.session.delete(review)
+        db.session.commit()
+        return make_response({"message": "Review successfully deleted!"}, 200)
