@@ -131,7 +131,7 @@ class Review(db.Model, SerializerMixin):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     game_id = db.Column(db.Integer, db.ForeignKey('games.id'))
     
-    serialize_rules = ('-user.favourites', '-game.favourites', '-user.reviews', '-game.reviews')
+    serialize_rules = ('-user.favourites', '-game.favourites', '-user.reviews', '-game.reviews', '-author.reviews', )
 
     def __repr__(self):
         return f'<Review {self.rating}>'

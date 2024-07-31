@@ -17,7 +17,7 @@ class FavouriteController(Resource):
             return make_response({"error": "User not found"}, 404)
         
         favourites = [game.to_dict() for game in user.favourites]
-        return make_response({f"User: {user.first_name}'s favourite games": favourites}, 200)
+        return make_response({f"{user.first_name.capitalize()}'s favourite games": favourites}, 200)
     
     def post(self):
         #Add favourite game to list 
