@@ -21,7 +21,7 @@ class User (db.Model, SerializerMixin):
     games = association_proxy("favourites", "game", creator=lambda g: Favourite(game=g))
     reviews = db.relationship("Review", backref="author")
 
-    serialize_rules = ('-favourites',)
+    serialize_rules = ('-_hashed_password','-favourites', '-reviews.author')
 
     #Validate username
     @validates('username')
@@ -98,7 +98,7 @@ class Game (db.Model, SerializerMixin):
     favourites = db.relationship("Favourite", back_populates="game")
     users = association_proxy("favourites", "user", creator=lambda u: Favourite(user=u) )
 
-    serialize_rules = ('-favourites',)
+    serialize_rules = ('-favourites', '-reviews')
 
     def __repr__(self):
         return f"<Game: {self.title} | {self.genre}>"
@@ -115,6 +115,8 @@ class Favourite (db.Model, SerializerMixin):
     user = db.relationship("User", back_populates="favourites")
     game = db.relationship("Game", back_populates="favourites")
 
+    serialize_rules = ('-user.favourites', '-game.favourites')
+
     def __repr__(self):
         return f"<Favourite: {self.game_id}>"
 
@@ -129,7 +131,7 @@ class Review(db.Model, SerializerMixin):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     game_id = db.Column(db.Integer, db.ForeignKey('games.id'))
     
-    serialize_rules = ('-user.favourites', '-game.favourites')
+    serialize_rules = ('-user.favourites', '-game.favourites', '-user.reviews', '-game.reviews')
 
     def __repr__(self):
         return f'<Review {self.rating}>'
