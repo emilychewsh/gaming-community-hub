@@ -4,7 +4,7 @@ from models import User, Game, Favourite, Review, ReviewLike
 from controllers.user_controller import UserSignup, UserLogin, UserLogout, UserAccount
 from controllers.admin_game_controller import AdminAddGame, AdminUpdateGame, AdminDeleteGame
 from controllers.favourite_controller import FavouriteController
-from controllers.review_controller import ReviewController
+from controllers.review_controller import AddReview, DeleteReview, GetAllReviews, GetReviewById
 
 
 @app.route('/')
@@ -26,7 +26,10 @@ api.add_resource(AdminDeleteGame, '/admin/delete_game/<int:game_id>')
 api.add_resource(FavouriteController, '/favourites')
 
 #Review
-api.add_resource(ReviewController, '/reviewcontroller')
+api.add_resource(AddReview, '/reviews/add')
+api.add_resource(DeleteReview, '/reviews/delete')
+api.add_resource(GetAllReviews, '/reviews/all')
+api.add_resource(GetReviewById, '/reviews/<int:review_id>')
 
 if __name__ == "__main__":
     app.run(port=4000, debug=True)

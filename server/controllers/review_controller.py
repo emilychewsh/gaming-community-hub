@@ -3,25 +3,8 @@ from config import db
 from models import User, Game, Review
 from flask import make_response, session, request
 
-class ReviewController(Resource):
-    def get(self):
-        user_id = session.get('user_id')
 
-        if not user_id:
-            return make_response({"error": "User not logged in. Please sign in."}, 401)
-        
-        user = User.query.get(user_id)
-
-        if not user:
-            return make_response({"error": "User not found"}, 404)
-        
-        reviews = [review.to_dict() for review in user.reviews]
-        if not reviews:
-            return make_response({"error": "No reviews yet"}, 404)
-        
-        return make_response({'reviews': reviews}, 200)
-    
-    
+class AddReview(Resource):
     def post(self):
         user_id = session.get('user_id')
         game_id = request.json.get('game_id')
@@ -54,7 +37,8 @@ class ReviewController(Resource):
         db.session.add(review)
         db.session.commit()
         return make_response({"message": "Review posted!"}, 201)
-    
+
+class DeleteReview(Resource):
     def delete(self):
         user_id = session.get('user_id')
         game_id = request.json.get('game_id')
@@ -80,3 +64,30 @@ class ReviewController(Resource):
         db.session.delete(review)
         db.session.commit()
         return make_response({"message": "Review successfully deleted!"}, 200)
+
+class GetAllReviews(Resource):
+    def get(self):
+        user_id = session.get('user_id')
+
+        if not user_id:
+            return make_response({"error": "User not logged in. Please sign in."}, 401)
+        
+        user = User.query.get(user_id)
+
+        if not user:
+            return make_response({"error": "User not found"}, 404)
+        
+        reviews = [review.to_dict() for review in user.reviews]
+        if not reviews:
+            return make_response({"error": "No reviews yet"}, 404)
+        
+        return make_response({'reviews': reviews}, 200)
+   
+class GetReviewById(Resource):
+    def get(self, review_id):
+        review = Review.query.get(review_id)
+        
+        if not review:
+            return make_response({"error": "Review not found"}, 404)
+        
+        return make_response(review.to_dict(), 200)
