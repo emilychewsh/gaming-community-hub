@@ -3,7 +3,7 @@ from config import app, api
 from models import User, Game, Favourite, Review, ReviewLike
 from controllers.user_controller import UserSignup, UserLogin, UserLogout, UserAccount
 from controllers.admin_game_controller import AdminAddGame, AdminUpdateGame, AdminDeleteGame
-from controllers.favourite_controller import FavouriteController
+from controllers.favourite_controller import GetAllFavourites, GetFavouriteById, AddToFavourites, RemoveFromFavourites
 from controllers.review_controller import AddReview, DeleteReview, GetAllReviews, GetReviewById
 from controllers.review_like_controller import ReviewLikeController
 
@@ -23,7 +23,10 @@ api.add_resource(AdminUpdateGame, '/admin/update_game/<int:game_id>')
 api.add_resource(AdminDeleteGame, '/admin/delete_game/<int:game_id>')
 
 #Favourite
-api.add_resource(FavouriteController, '/favourites')
+api.add_resource(GetAllFavourites, '/favourites')
+api.add_resource(GetFavouriteById, 'favourites/<int:game_id>')
+api.add_resource(AddToFavourites, '/favourites/add')
+api.add_resource(RemoveFromFavourites, '/favourites/remove')
 
 #Review
 api.add_resource(AddReview, '/reviews/add')
