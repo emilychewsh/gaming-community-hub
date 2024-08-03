@@ -4,7 +4,7 @@ from models import User, Game, Review, ReviewLike
 from flask import make_response, session, request
 
 ####Refactor these.
-class ReviewLikeController(Resource):
+class UpdateReviewStatus(Resource):
     def post(self):
         user_id = session.get('user_id')
         review_id = request.json.get('review_id')
@@ -33,7 +33,7 @@ class ReviewLikeController(Resource):
         if existing_like:
             existing_like.is_like = is_like
             db.session.commit()
-            return make_response({"message": "You have already updated this review"}, 200)
+            return make_response({"message": "You have already updated status of this review"}, 200)
         else:
             new_like = ReviewLike(
                 user_id=user_id, 
@@ -43,18 +43,17 @@ class ReviewLikeController(Resource):
             db.session.commit()
             return make_response({"message": "Like status updated successfully"}, 201)
         
+class RemoveReviewStatus(Resource):
     def delete(self, review_id):
         user_id = session.get('user_id')
 
         if not user_id:
             return make_response({"error": "User not logged in. Please sign in."}, 401)
         
-        # Find the like/dislike entry to delete
         existing_like = ReviewLike.query.filter_by(user_id=user_id, review_id=review_id).first()
-
         if not existing_like:
             return make_response({"error": "Like/dislike entry not found"}, 404)
         
         db.session.delete(existing_like)
         db.session.commit()
-        return make_response({"message": "Like/dislike removed"}, 200)
+        return make_response({"message": "Like/dislike removed successfully"}, 200)
