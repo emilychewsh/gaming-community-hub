@@ -6,12 +6,13 @@ from datetime import datetime
 
 
 class AdminBaseResource(Resource):
+    #Set base class for admin-related resources
     def is_admin(self, user_id):
         if not user_id: 
             return False
         
         user = User.query.get(user_id)
-        if not user or not user.is_admin:
+        if not user or not user.is_admin: #checks if given user id is an admin user
             return False
         
         return True

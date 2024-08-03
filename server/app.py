@@ -35,7 +35,7 @@ api.add_resource(GetAllReviews, '/reviews/all')
 api.add_resource(GetReviewById, '/reviews/<int:review_id>')
 
 #ReviewLike
-api.add_resource(ReviewLikeController, '/reviews/like', '/reviews/like/<int:review_id>')
+api.add_resource(ReviewLikeController, '/reviews/<int:review_id>/like')
 
 if __name__ == "__main__":
     app.run(port=4000, debug=True)

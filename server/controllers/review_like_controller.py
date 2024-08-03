@@ -24,6 +24,9 @@ class ReviewLikeController(Resource):
         if not review:
             return make_response({"error": "Review not found"}, 404)
         
+        if review.id == user_id:
+            return make_response({"error": "You cannot like/dislike your own review"}, 403)
+        
         #Check if like/dislike already exists 
         existing_like = ReviewLike.query.filter_by(user_id=user_id, review_id=review_id).first()
 
