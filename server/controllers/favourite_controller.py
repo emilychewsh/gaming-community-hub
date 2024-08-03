@@ -61,14 +61,15 @@ class AddToFavourites(Resource):
         if not game:
             return make_response({"error": "Game not Found"}, 404)
         
-        if game in user.favourites:
-            return make_response({"message": "Game is already in your favourites"}, 400)
+        existing_favourite = Favourite.query.filter_by(user_id= user_id, game_id=game_id).first()
+        if existing_favourite:
+            return make_response({"message": f"'{game.title}' is already in your favourites"}, 400)
         
         favourite = Favourite(user_id=user_id, game_id=game_id)
         db.session.add(favourite)
         db.session.commit()
 
-        return make_response({"message": "Game added to favourite list!"}, 201)
+        return make_response({"message": f"'{game.title}' has been added to favourite list!"}, 201)
 
 class RemoveFromFavourites(Resource):
     def delete(self):

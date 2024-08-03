@@ -24,7 +24,7 @@ api.add_resource(AdminDeleteGame, '/admin/delete_game/<int:game_id>')
 
 #Favourite
 api.add_resource(GetAllFavourites, '/favourites')
-api.add_resource(GetFavouriteById, 'favourites/<int:game_id>')
+api.add_resource(GetFavouriteById, '/favourites/<int:game_id>')
 api.add_resource(AddToFavourites, '/favourites/add')
 api.add_resource(RemoveFromFavourites, '/favourites/remove')
 
