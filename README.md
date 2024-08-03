@@ -4,13 +4,13 @@ Welcome to my Flask Project for phase 4 with Academy Xi! <br>
 
 ## What's it About?
 
-A full-stack application that serves as a hub for gamers. Users can create accounts, stay logged in, look up favorite games, write reviews, view other reviews, manage favorites, and more. The admin side allows creating, deleting, and updating games.
+A full-stack application that serves as a hub for gamers. Users can create accounts, stay logged in, look up favourite games, write reviews, view other reviews, manage favourites, and more. The admin side allows creating, deleting, and updating games.
 
 ## Features
 
 - User authentication (sign up, log in, log out)
 - Game management (add, update, delete) for admins
-- Favorite games management
+- Favourite games management
 - Write, view, and delete reviews
 - Like or dislike reviews
 - Admin management of games
@@ -61,17 +61,9 @@ python app.py
 
 6. Postman or other agents will be needed to test the API.
 
-## API Endpoints
+## Entity Relationship
 
-### User authentication
-
-### Game Management (Admin only)
-
-### Favourites
-
-### Reviews
-
-### ReviewLikes
+![ERD](assets/images/erd-diagram.JPG)
 
 ## Database Schema
 
