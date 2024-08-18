@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css'
 import NavBar from './components/Navbar'
 import HomePage from './pages/HomePage'
+import GamePage from './pages/GamePage'
 
 function App() {
 
@@ -15,7 +16,7 @@ function App() {
           <Route path='/' element={<HomePage />} />
           <Route path='about' />
           <Route path='signup' />
-          <Route path='/games/:gameId' />
+          <Route path='games' element={<GamePage />} />
         </Routes>
       </Router>
     </>

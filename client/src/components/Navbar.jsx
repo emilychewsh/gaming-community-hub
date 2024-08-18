@@ -15,9 +15,11 @@ function NavBar() {
             <Nav.Link href="/about">About</Nav.Link>
             <NavDropdown title="Games" id="collapsible-nav-dropdown">
               <NavDropdown.Item href="/games">All Games</NavDropdown.Item>
-              <NavDropdown.Item href="/games/rpg">RPG</NavDropdown.Item>
-              <NavDropdown.Item href="/games/action">Action</NavDropdown.Item>
-              <NavDropdown.Item href="/games/racing">Racing</NavDropdown.Item>
+              <NavDropdown.Item href="/games?genre=RPG">RPG</NavDropdown.Item>
+              <NavDropdown.Item href="/games?genre=Action">Action</NavDropdown.Item>
+              <NavDropdown.Item href="/games?genre=Racing">Racing</NavDropdown.Item>
+              <NavDropdown.Item href="/games?genre=Battle">Battle</NavDropdown.Item>
+              <NavDropdown.Item href="/games?genre=Anime">Anime</NavDropdown.Item>
             </NavDropdown>
           </Nav>
           <Nav>
