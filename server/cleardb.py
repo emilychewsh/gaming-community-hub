@@ -10,6 +10,6 @@ def clear_all_records():
     db.session.commit()
     print("All records have been cleared!")
 
-# if __name__ == "__main__":
-#     with app.app_context():
-#         clear_all_records()
+if __name__ == "__main__":
+    with app.app_context():
+        clear_all_records()

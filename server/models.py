@@ -94,6 +94,7 @@ class Game (db.Model, SerializerMixin):
     release_date = db.Column(db.Date, nullable=False)
     developer = db.Column(db.String, nullable=False)
     publisher = db.Column(db.String, nullable=False)
+    image_url = db.Column(db.String)
 
     favourites = db.relationship("Favourite", back_populates="game")
     users = association_proxy("favourites", "user", creator=lambda u: Favourite(user=u) )
