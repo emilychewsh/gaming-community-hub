@@ -6,7 +6,7 @@ from controllers.admin_game_controller import AdminAddGame, AdminUpdateGame, Adm
 from controllers.favourite_controller import GetAllFavourites, GetFavouriteById, AddToFavourites, RemoveFromFavourites
 from controllers.review_controller import AddReview, DeleteReview, GetAllReviews, GetReviewById
 from controllers.review_like_controller import UpdateReviewStatus, RemoveReviewStatus
-from controllers.games_controller import GetAllGames
+from controllers.games_controller import GetAllGames, GetGameById
 
 @app.route('/')
 def index():
@@ -41,6 +41,7 @@ api.add_resource(RemoveReviewStatus, '/reviews/remove/<int:review_id>')
 
 #Games
 api.add_resource(GetAllGames, '/games')
+api.add_resource(GetGameById, '/games/<int:game_id>')
 
 if __name__ == "__main__":
     app.run(port=4000, debug=True)
