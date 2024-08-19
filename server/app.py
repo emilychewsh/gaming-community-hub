@@ -4,7 +4,7 @@ from models import User, Game, Favourite, Review, ReviewLike
 from controllers.user_controller import UserSignup, UserLogin, UserLogout, UserAccount
 from controllers.admin_game_controller import AdminAddGame, AdminUpdateGame, AdminDeleteGame
 from controllers.favourite_controller import GetAllFavourites, GetFavouriteById, AddToFavourites, RemoveFromFavourites
-from controllers.review_controller import AddReview, DeleteReview, GetAllReviews, GetReviewById
+from controllers.review_controller import AddReview, DeleteReview, GetAllReviews, GetReviewById, GetReviewsByGame
 from controllers.review_like_controller import UpdateReviewStatus, RemoveReviewStatus
 from controllers.games_controller import GetAllGames, GetGameById
 
@@ -34,6 +34,7 @@ api.add_resource(AddReview, '/reviews/add')
 api.add_resource(DeleteReview, '/reviews/delete')
 api.add_resource(GetAllReviews, '/reviews/all')
 api.add_resource(GetReviewById, '/reviews/<int:review_id>')
+api.add_resource(GetReviewsByGame, '/games/<int:game_id>/reviews')
 
 #ReviewLike
 api.add_resource(UpdateReviewStatus, '/reviews/like')

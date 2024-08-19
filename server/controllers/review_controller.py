@@ -91,3 +91,14 @@ class GetReviewById(Resource):
             return make_response({"error": "Review not found"}, 404)
         
         return make_response(review.to_dict(), 200)
+    
+class GetReviewsByGame(Resource):
+    def get(self, game_id):
+        game = Game.query.get(game_id)
+        
+        if not game:
+            return make_response({"error": "Game not found"}, 404)
+        
+        reviews = [review.to_dict() for review in game.reviews]
+        
+        return make_response({'reviews': reviews}, 200)
