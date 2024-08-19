@@ -5,6 +5,7 @@ import './App.css'
 import NavBar from './components/Navbar'
 import HomePage from './pages/HomePage'
 import GamePage from './pages/GamePage'
+import GameDetailsPage from './components/GameDetails'
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
           <Route path='about' />
           <Route path='signup' />
           <Route path='games' element={<GamePage />} />
+          <Route path='games/:gameId' element={<GameDetailsPage />} />
         </Routes>
       </Router>
     </>

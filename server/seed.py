@@ -14,7 +14,8 @@ def seed_games():
             trailer_url="https://www.youtube.com/watch?v=c0i88t0Kacs&pp=ygUSd2l0Y2hlciAzIHRyYWlsZXIg",
             release_date=datetime.strptime("2015-05-19", "%Y-%m-%d").date(),
             publisher="CD Projekt",
-            developer="CD Projekt Red"
+            developer="CD Projekt Red",
+            image_url = "server/images/witcher3-bg.jpeg"
         ),
         Game(
             title="Elden Ring",
@@ -26,7 +27,8 @@ def seed_games():
             trailer_url="https://youtu.be/qLZenOn7WUo?si=0ppeRMK8L8hmA85l",
             release_date=datetime.strptime("2022-02-25", "%Y-%m-%d").date(),
             publisher="Bandai Namco Entertainment",
-            developer="FromSoftware"
+            developer="FromSoftware",
+            image_url = "server/images/eldenring-bg.jpeg"
         ),
         Game(
             title="Hades",
@@ -38,7 +40,8 @@ def seed_games():
             trailer_url="https://youtu.be/Bz8l935Bv0Y?si=gKUe9hsSSxlJGUcL",
             release_date=datetime.strptime("2020-09-17", "%Y-%m-%d").date(),
             publisher="Supergiant Games",
-            developer="Supergiant Games"
+            developer="Supergiant Games",
+            image_url = "server/images/hades-bg.jpeg"
         ),
         Game(
             title="Helldivers 2",
@@ -50,7 +53,8 @@ def seed_games():
             trailer_url="https://youtu.be/UC5EpJR0GBQ?si=pAkEaT5KqgHfYpjs",
             release_date=datetime.strptime("2024-02-20", "%Y-%m-%d").date(),
             publisher="PlayStation Studios",
-            developer="Arrowhead Game Studios"
+            developer="Arrowhead Game Studios",
+            image_url = "server/images/helldivers2-bg.jpeg"
         ),
         Game(
             title="Persona 5 Royal",
@@ -62,7 +66,8 @@ def seed_games():
             trailer_url="https://youtu.be/SKpSpvFCZRw?si=u3u7p-S0s4iBaV1l",
             release_date=datetime.strptime("2019-10-31", "%Y-%m-%d").date(),
             publisher="Atlus",
-            developer="Atlus"
+            developer="Atlus",
+            image_url = "server/images/persona5-bg.jpeg"
         ),
         Game(
             title="Ni no Kuni",
@@ -74,7 +79,8 @@ def seed_games():
             trailer_url="https://youtu.be/vGzdeUCVWOE?si=M87ORchq_zWoF7dj",
             release_date=datetime.strptime("2011-11-17", "%Y-%m-%d").date(),
             publisher="Namco Bandai Games",
-            developer="Level-5"
+            developer="Level-5",
+            image_url = "server/images/ninokuni-bg.jpeg"
         ),
         Game(
             title="King of Fighters XV",
@@ -86,7 +92,8 @@ def seed_games():
             trailer_url="https://youtu.be/i-R_EQUIRA8?si=0BqJ4arivBoFhic1",
             release_date=datetime.strptime("2022-02-17", "%Y-%m-%d").date(),
             publisher="SNK",
-            developer="SNK"
+            developer="SNK",
+            image_url = "server/images/king-of-fighters-xv-bg.jpeg"
         ),
         Game(
             title="The Legend of Zelda: Tears of the Kingdom",
@@ -98,7 +105,8 @@ def seed_games():
             trailer_url="https://youtu.be/uHGShqcAHlQ?si=5LoMFm4jR-1t58lD",
             release_date=datetime.strptime("2023-05-12", "%Y-%m-%d").date(),
             publisher="Nintendo",
-            developer="Nintendo EPD"
+            developer="Nintendo EPD",
+            image_url = "server/images/zelda-bg.jpeg"
         ),
         Game(
             title="Halo Infinite",
@@ -110,7 +118,8 @@ def seed_games():
             trailer_url="https://www.youtube.com/embed/PyMlV5_HRWk",
             release_date=datetime.strptime("2021-12-08", "%Y-%m-%d").date(),
             publisher="Xbox Game Studios",
-            developer="343 Industries"
+            developer="343 Industries",
+            image_url = "server/images/halo-bg.jpeg"
         ),
         Game(
             title="Street Fighter V",
@@ -122,7 +131,8 @@ def seed_games():
             trailer_url="https://youtu.be/0nFd7Iylj5A?si=ksxK3txhahjgcREO",
             release_date=datetime.strptime("2016-02-16", "%Y-%m-%d").date(),
             publisher="Capcom",
-            developer="Capcom"
+            developer="Capcom",
+            image_url = "server/images/streetfighter-bg.jpeg"
         ),
         Game(
             title="Mario Kart 8 Deluxe",
@@ -134,7 +144,8 @@ def seed_games():
             trailer_url="https://www.youtube.com/embed/tKlRN2YpxRE",
             release_date=datetime.strptime("2017-04-28", "%Y-%m-%d").date(),
             publisher="Nintendo",
-            developer="Nintendo EPD"
+            developer="Nintendo EPD",
+            image_url = "server/images/mario-bg.jpeg"
         ),
         Game(
             title="FINAL FANTASY VII Remake",
@@ -146,7 +157,8 @@ def seed_games():
             trailer_url="https://youtu.be/Ge73iBqc7o8?si=_IsbMylUCPSERQel",
             release_date=datetime.strptime("2020-04-10", "%Y-%m-%d").date(),
             publisher="Square Enix",
-            developer="Square Enix"
+            developer="Square Enix",
+            image_url = "server/images/finalfantasy-bg.jpeg"
         ),
         Game(
             title="F1® 24",
@@ -158,7 +170,8 @@ def seed_games():
             trailer_url="https://youtu.be/4rCs87muGjc?si=Pb-p6ewcvMMXaFrS",
             release_date=datetime.strptime("2024-07-19", "%Y-%m-%d").date(),
             publisher="EA Sports",
-            developer="Codemasters"
+            developer="Codemasters",
+            image_url = "server/images/f1-bg.jpeg"
         ),
         Game(
             title="Tekken 8",
@@ -170,7 +183,8 @@ def seed_games():
             trailer_url="https://www.youtube.com/watch?v=_MM4clV2qjE",
             release_date=datetime.strptime("2024-01-26", "%Y-%m-%d").date(),
             publisher="Bandai Namco Entertainment",
-            developer="Bandai Namco Studios"
+            developer="Bandai Namco Studios",
+            image_url = "server/images/tekken8-bg.jpeg"
         ),
         Game(
             title="Hollow Knight",
@@ -182,15 +196,16 @@ def seed_games():
             trailer_url="https://www.youtube.com/watch?v=UAO2urG23S4",
             release_date=datetime.strptime("2017-02-24", "%Y-%m-%d").date(),
             publisher="Team Cherry",
-            developer="Team Cherry"
+            developer="Team Cherry",
+            image_url = "server/images/hollowknight-bg.jpeg"
         )
     ]
 
     db.session.add_all(games)
     db.session.commit()
 
-# if __name__ == "__main__":
-#     from config import app
-#     with app.app_context():
-#         seed_games()
-#     print("Seeding complete!")
+if __name__ == "__main__":
+    from config import app
+    with app.app_context():
+        seed_games()
+    print("Seeding complete!")
