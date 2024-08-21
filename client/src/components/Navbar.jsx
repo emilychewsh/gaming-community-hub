@@ -3,7 +3,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
-function NavBar() {
+function NavBar({ user, handleLogout}) {
   return (
     <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary" fixed="top">
       <Container>
@@ -23,8 +23,23 @@ function NavBar() {
             </NavDropdown>
           </Nav>
           <Nav>
-            <Nav.Link href="/signup">Sign Up</Nav.Link>
-            <Nav.Link href="/login">Login</Nav.Link>
+            {
+              user? (
+                <>
+                  <NavDropdown title={`Hi, ${user.first_name}`} id="user-nav-dropdown">
+                  <NavDropdown.Item href="/account">My Account</NavDropdown.Item>
+                  <NavDropdown.Item href="/wishlist">Wishlist</NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
+                </NavDropdown>
+                </>
+              ) : (
+                <>
+                <Nav.Link href="/signup">Sign Up</Nav.Link>
+                <Nav.Link href="/login">Login</Nav.Link>
+              </>
+              )
+            }
           </Nav>
         </Navbar.Collapse>
       </Container>
