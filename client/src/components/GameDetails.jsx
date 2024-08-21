@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Container, Row, Col, Tab, Tabs } from 'react-bootstrap';
+import ReviewTab from "./ReviewTab";
 
-export default function GameDetailsPage() {
+export default function GameDetailsPage({user}) {
     const { gameId } = useParams(); //get gameId from URL params
     const [game, setGame] = useState(null);
     const [activeTab, setActiveTab] = useState('details') //this state manages the active tab between details and reviews
@@ -52,7 +53,7 @@ export default function GameDetailsPage() {
                             </Row>
                         </Tab>
                         <Tab eventKey="reviews" title="Reviews">
-                            {/* placeholder - reviews here */}
+                            <ReviewTab user={user} gameId = {gameId} />
                         </Tab>
                     </Tabs>
             </Container>
