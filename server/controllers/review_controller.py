@@ -36,7 +36,7 @@ class AddReview(Resource):
 
         db.session.add(review)
         db.session.commit()
-        return make_response({"message": "Review posted!"}, 201)
+        return make_response({"message": "Review posted!", "review": review.to_dict()}, 201)
 
 class DeleteReview(Resource):
     def delete(self):
@@ -99,6 +99,8 @@ class GetReviewsByGame(Resource):
         if not game:
             return make_response({"error": "Game not found"}, 404)
         
-        reviews = [review.to_dict() for review in game.reviews]
+        reviews = Review.query.filter_by(game_id=game_id).all()
+
+        reviews_dict = [review.to_dict() for review in reviews]
         
-        return make_response({'reviews': reviews}, 200)
+        return make_response({'reviews': reviews_dict}, 200)

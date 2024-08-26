@@ -49,7 +49,7 @@ class User (db.Model, SerializerMixin):
     
     @validates('email')
     def validate_email(self, key, email):
-        email_regex =  r'^[A-Za-z.0-9+@[A-Za-z0-9.]+\.[A-Za-z]{2,7}$'
+        email_regex =  r'^[A-Za-z.0-9+]@[A-Za-z0-9.]+\.[A-Za-z]{2,7}$'
 
         if not email:
             raise ValueError("Email is required")
@@ -124,14 +124,14 @@ class Favourite (db.Model, SerializerMixin):
 class Review(db.Model, SerializerMixin):
     __tablename__ = "reviews"
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True) 
     content = db.Column(db.String, nullable=False)
     rating = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.Date, nullable=False, default=datetime.utcnow)
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     game_id = db.Column(db.Integer, db.ForeignKey('games.id'))
-    
+
     serialize_rules = ('-user.favourites', '-game.favourites', '-user.reviews', '-game.reviews', '-author.reviews', )
 
     def __repr__(self):
