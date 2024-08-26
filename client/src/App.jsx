@@ -7,6 +7,7 @@ import HomePage from './pages/HomePage'
 import GamePage from './pages/GamePage'
 import GameDetailsPage from './components/GameDetails'
 import SignUpPage from './pages/SignUpPage'
+import LoginPage from './pages/LoginPage'
 
 function App() {
   const [user, setUser] = useState(null);
@@ -23,10 +24,9 @@ function App() {
   }, []);
 
   const handleLogout = () => {
-    fetch('user/logout', { method: 'DELETE' })
+    fetch('http://localhost:4000/user/logout', { method: 'DELETE' })
       .then(() => {
         setUser(null)
-
       })
   };
 
@@ -34,6 +34,10 @@ function App() {
     setUser(userData)
 
   };
+
+  const handleLogin = (userData) => {
+    setUser(userData)
+  }
 
 
   return (
@@ -44,6 +48,7 @@ function App() {
           <Route path='/' element={<HomePage />} />
           <Route path='about' />
           <Route path='signup' element={<SignUpPage onSignup={handleSignup} />} />
+          <Route path='login' element={<LoginPage onLogin={handleLogin}/>} />
           <Route path='games' element={<GamePage />} />
           <Route path='games/:gameId' element={<GameDetailsPage user={user} />} />
           

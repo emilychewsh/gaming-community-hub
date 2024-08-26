@@ -4,6 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
 function NavBar({ user, handleLogout}) {
+
   return (
     <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary" fixed="top">
       <Container>
@@ -26,9 +27,9 @@ function NavBar({ user, handleLogout}) {
             {
               user? (
                 <>
-                  <NavDropdown title={`Hi, ${user.first_name}`} id="user-nav-dropdown">
-                  <NavDropdown.Item href="/account">My Account</NavDropdown.Item>
-                  <NavDropdown.Item href="/wishlist">Wishlist</NavDropdown.Item>
+                  <NavDropdown title={`Hi, ${user.first_name.toUpperCase()}`} id="user-nav-dropdown">
+                  <NavDropdown.Item href="#">My Account</NavDropdown.Item>
+                  <NavDropdown.Item href="#">Wishlist</NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
                 </NavDropdown>

@@ -39,7 +39,7 @@ class UserLogin(Resource):
 
                 if user and user.authenticate_password(password):
                     session['user_id'] = user.id
-                    return make_response({"message": f"Welcome {user.first_name.title()}, you have successfully logged in!"}, 200)
+                    return make_response(user.to_dict(), 200)
 
                 else:
                     return make_response({"error": "Unauthorised"}, 401)
