@@ -14,28 +14,42 @@ function App() {
 
   useEffect(() => {
     // check if user is logged in when comp mounts
-    fetch('user/account')
+
+    const token = localStorage.getItem('token')
+    if (token) {
+      fetch('http://localhost:4000/user/account', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      })
       .then((response) => response.json())
       .then((data) => {
         if (data.id) {
           setUser(data)
         }
-      })
-  }, []);
+    })
+    .catch(() => {
+      localStorage.removeItem('token');  // Remove token if there’s an error
+    })
+  }
+}, []);
 
   const handleLogout = () => {
     fetch('http://localhost:4000/user/logout', { method: 'DELETE' })
       .then(() => {
+        localStorage.removeItem('token')
         setUser(null)
       })
   };
 
   const handleSignup = (userData) => {
+    localStorage.setItem('token', userData.token)
     setUser(userData)
 
   };
 
   const handleLogin = (userData) => {
+    localStorage.setItem('token', userData.token)
     setUser(userData)
   }
 
