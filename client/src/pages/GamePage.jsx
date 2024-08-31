@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
+import { AppContext } from '../AppContext';
 
-export default function GamePage({user}) {
+export default function GamePage() {
     const [gameData, setGameData] = useState([]);
     const [filteredGames, setFilteredGames] = useState([]);
     const navigate = useNavigate();
     const location = useLocation();
+    const { user } = useContext(AppContext);
 
     // Function to parse query parameters from URL
     const getQueryParams = (search) => {

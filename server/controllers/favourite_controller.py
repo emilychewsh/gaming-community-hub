@@ -16,7 +16,7 @@ class GetAllFavourites(Resource):
             return make_response({"error": "User not found"}, 404)
         
         favourites = [game.to_dict() for game in user.favourites]
-        return make_response({f"{user.first_name.capitalize()}'s favourite games": favourites}, 200)
+        return make_response({"favourites": favourites}, 200)
     
 
 class GetFavouriteById(Resource):

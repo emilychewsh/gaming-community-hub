@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import { Form, Button, Alert, Container } from 'react-bootstrap'
+import { AppContext } from '../AppContext';
 
-export default function SignUpPage( {onSignup} ) {
+export default function SignUpPage() {
     const [formData, setFormData] = useState({
         username: "",
         first_name: "",
@@ -14,13 +15,16 @@ export default function SignUpPage( {onSignup} ) {
     const [error, setError] = useState(null)
     const navigate = useNavigate()
 
+    const { handleSignup  } = useContext(AppContext);
+
+
     const handleChange = (e) => {
         setFormData({...formData, [e.target.name]: e.target.value})
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        fetch('http://localhost:4000/user/signup', {
+        fetch('/user/signup', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formData)
@@ -33,7 +37,7 @@ export default function SignUpPage( {onSignup} ) {
         })
         .then((data) => {
             if (data.id) {
-                onSignup(data)
+                handleSignup(data)
                 navigate('/games')
             }
         })

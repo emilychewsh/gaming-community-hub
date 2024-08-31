@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { AppContext } from '../AppContext';
 
-export default function ReviewTab({ user }) {
+export default function ReviewTab() {
     const {gameId} = useParams();
     const [reviews, setReviews] = useState([]);
     const [newReview, setNewReview] = useState({ content: '', rating: 0});
+    const { user } = useContext(AppContext);
 
     useEffect(() => {
-        fetch(`http://localhost:4000/games/${gameId}/reviews`)
+        fetch(`/games/${gameId}/reviews`)
         .then((resp) => resp.json())
         .then((data) => setReviews(data.reviews))
         .catch((error) => console.error("Error with fetching game reviews:", error))
@@ -19,12 +21,7 @@ export default function ReviewTab({ user }) {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        if (!user) {
-            alert("Please log in to write a review.")
-            return
-        }
-
-        fetch('http://localhost:4000/reviews/add', {
+        fetch('/reviews/add', {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json' 
@@ -45,9 +42,6 @@ export default function ReviewTab({ user }) {
         .then((data) => {
             setReviews([...reviews, data.review]);
             setNewReview({ content: '', rating: 0 })
-        })
-        .catch((error) => {
-            alert(error.message)
         })
     }
 

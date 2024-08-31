@@ -8,6 +8,7 @@ class AddReview(Resource):
     def post(self):
         user_id = session.get('user_id')
         print(f"User ID from session: {user_id}")
+        
         game_id = request.json.get('game_id')
 
         if not user_id:

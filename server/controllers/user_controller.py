@@ -39,7 +39,7 @@ class UserLogin(Resource):
 
                 if user and user.authenticate_password(password):
                     session['user_id'] = user.id
-                    print(f"successful login. user id{user.id}")
+                    print(f"User ID set in session: {session['user_id']}")
                     return make_response(user.to_dict(), 200)
 
                 else:
@@ -61,17 +61,16 @@ class UserAccount(Resource):
     def get(self):
         print("Session content:", session)
 
-        if 'user_id' not in session:
-            return make_response({"error": {"No user logged in. Please log into your account."}}, 403)
+        if 'user_id' in session:
         
-        user_id = session['user_id']
-        user = User.query.filter(User.id == session['user_id']).first()
+            user_id = session['user_id']
+            user = User.query.filter(User.id == user_id).first()
 
-        if user:
-            return make_response(user.to_dict(), 200)
+            if user:
+                return make_response(user.to_dict(), 200)
         
 
-        return make_response({"message": "No user found."}, 403)
+        return make_response({"message": "No user logged in."}, 403)
     
     def patch(self):
 

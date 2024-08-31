@@ -1,21 +1,41 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { Container, Row, Col, Tab, Tabs } from 'react-bootstrap';
 import ReviewTab from "./ReviewTab";
+import { AppContext } from '../AppContext';
 
-export default function GameDetailsPage({user}) {
+export default function GameDetailsPage() {
     const { gameId } = useParams(); //get gameId from URL params
     const [game, setGame] = useState(null);
-    const [activeTab, setActiveTab] = useState('details') //this state manages the active tab between details and reviews
+    const { user } = useContext(AppContext);
+    const [message, setMessage] = useState('');
 
     useEffect(() => {
-        fetch(`http://localhost:4000/games/${gameId}`)
+        fetch(`/games/${gameId}`)
         .then((resp) => resp.json())
         .then((data) => {
             setGame(data)
         })
         .catch((error) => console.error("Error fetching game details:", error))
     }, [gameId])
+
+
+    const handleAddToWishlist = () => {
+        if (!user) {
+            alert("Please log in to add to your wishlist.");
+            return;
+        }
+
+        fetch('/favourites/add', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ game_id: gameId })
+        })
+            .then(resp => resp.json())
+            .then(data => setMessage(data.message))
+            .catch(error => console.error("Error adding to wishlist:", error));
+    }
+
 
     if (!game) return <div>Loading game details...</div>
 
@@ -25,6 +45,7 @@ export default function GameDetailsPage({user}) {
                     <div className="overlay">
                         <h1>{game.title}</h1>
                         <p>{game.genre}</p>
+                        <button onClick={handleAddToWishlist}>Add to Wishlist</button>
                     </div>
                 </div>
 
@@ -53,7 +74,7 @@ export default function GameDetailsPage({user}) {
                             </Row>
                         </Tab>
                         <Tab eventKey="reviews" title="Reviews">
-                            <ReviewTab user={user} gameId = {gameId} />
+                            <ReviewTab />
                         </Tab>
                     </Tabs>
             </Container>

@@ -1,11 +1,14 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import { Form, Button, Alert, Container } from 'react-bootstrap'
+import { AppContext } from '../AppContext';
 
-export default function LoginPage({ onLogin }) {
+export default function LoginPage() {
     const [formData, setFormData] = useState({username: "", password: ""})
     const [error, setError] = useState(null)
     const navigate = useNavigate()
+
+    const { handleLogin } = useContext(AppContext);
 
     const handleChange = (e) => {
         setFormData({...formData, [e.target.name]: e.target.value})
@@ -13,7 +16,7 @@ export default function LoginPage({ onLogin }) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        fetch('http://localhost:4000/user/login', {
+        fetch('/user/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formData),
@@ -26,7 +29,7 @@ export default function LoginPage({ onLogin }) {
         })
         .then((data) =>{
             if (data.id) {
-                onLogin(data)
+                handleLogin(data)
                 navigate('/games')
             } else {
                 //handle errors

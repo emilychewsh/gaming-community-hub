@@ -1,10 +1,13 @@
+import React, { useContext } from 'react'
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link } from 'react-router-dom';
+import { AppContext } from '../AppContext';
 
-function NavBar({ user, handleLogout}) {
+function NavBar() {
+  const { user, handleLogout } = useContext(AppContext)
 
   return (
     <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary" fixed="top">
@@ -29,7 +32,7 @@ function NavBar({ user, handleLogout}) {
               <>
                 <NavDropdown title={`Hi, ${user.first_name.toUpperCase()}`} id="user-nav-dropdown">
                   <NavDropdown.Item as={Link} to="#">My Account</NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="#">Wishlist</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/wishlist">Wishlist</NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
                 </NavDropdown>
