@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom"
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 
-export default function GamePage() {
+export default function GamePage({user}) {
     const [gameData, setGameData] = useState([]);
     const [filteredGames, setFilteredGames] = useState([]);
     const navigate = useNavigate();

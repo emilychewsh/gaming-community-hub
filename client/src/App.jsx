@@ -8,48 +8,36 @@ import GamePage from './pages/GamePage'
 import GameDetailsPage from './components/GameDetails'
 import SignUpPage from './pages/SignUpPage'
 import LoginPage from './pages/LoginPage'
+import IndexPage from './pages/IndexPage'
 
 function App() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
     // check if user is logged in when comp mounts
-
-    const token = localStorage.getItem('token')
-    if (token) {
-      fetch('http://localhost:4000/user/account', {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      })
+    fetch('user/account')
       .then((response) => response.json())
       .then((data) => {
         if (data.id) {
           setUser(data)
         }
-    })
-    .catch(() => {
-      localStorage.removeItem('token');  // Remove token if there’s an error
-    })
-  }
-}, []);
+      })
+  }, []);
 
+  
   const handleLogout = () => {
     fetch('http://localhost:4000/user/logout', { method: 'DELETE' })
       .then(() => {
-        localStorage.removeItem('token')
         setUser(null)
       })
   };
 
   const handleSignup = (userData) => {
-    localStorage.setItem('token', userData.token)
     setUser(userData)
 
   };
 
   const handleLogin = (userData) => {
-    localStorage.setItem('token', userData.token)
     setUser(userData)
   }
 
@@ -57,14 +45,16 @@ function App() {
   return (
     <>
       <Router>
-        <NavBar user={user} handleLogout={handleLogout}/>
+        {/* <NavBar user={user} handleLogout={handleLogout}/> */}
         <Routes>
-          <Route path='/' element={<HomePage />} />
-          <Route path='about' />
-          <Route path='signup' element={<SignUpPage onSignup={handleSignup} />} />
-          <Route path='login' element={<LoginPage onLogin={handleLogin}/>} />
-          <Route path='games' element={<GamePage />} />
-          <Route path='games/:gameId' element={<GameDetailsPage user={user} />} />
+          <Route path='/' element={<IndexPage user={user} handleLogout={handleLogout}/>} >
+            <Route index element={<HomePage />} />
+            <Route path='about' />
+            <Route path='signup' element={<SignUpPage onSignup={handleSignup} />} />
+            <Route path='login' element={<LoginPage onLogin={handleLogin}/>} />
+            <Route path='games' element={<GamePage user={user}/>} />
+            <Route path='games/:gameId' element={<GameDetailsPage user={user} />} />
+          </Route>
           
         </Routes>
       </Router>

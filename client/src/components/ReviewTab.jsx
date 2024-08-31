@@ -27,8 +27,7 @@ export default function ReviewTab({ user }) {
         fetch('http://localhost:4000/reviews/add', {
             method: 'POST',
             headers: { 
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${user.token}`  
+                'Content-Type': 'application/json' 
             },
             body: JSON.stringify({ 
                 ...newReview,
@@ -37,7 +36,9 @@ export default function ReviewTab({ user }) {
         })
         .then((resp) => {
             if (!resp.ok) {
-                throw new Error("Failed to submit review.")
+                return resp.json().then(data =>{
+                    throw new Error(data.error || "Failed to submit review.")
+                })
             }
             return resp.json()
         })
@@ -45,7 +46,9 @@ export default function ReviewTab({ user }) {
             setReviews([...reviews, data.review]);
             setNewReview({ content: '', rating: 0 })
         })
-        .catch((error) => console.error("Error with posting review:", error))
+        .catch((error) => {
+            alert(error.message)
+        })
     }
 
     return (

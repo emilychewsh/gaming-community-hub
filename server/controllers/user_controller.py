@@ -30,7 +30,7 @@ class UserLogin(Resource):
     def post(self):
         
         if 'user_id' not in session:
-
+            
             username = request.json.get('username')
             password = request.json.get('password')
 
@@ -39,6 +39,7 @@ class UserLogin(Resource):
 
                 if user and user.authenticate_password(password):
                     session['user_id'] = user.id
+                    print(f"successful login. user id{user.id}")
                     return make_response(user.to_dict(), 200)
 
                 else:
@@ -47,7 +48,6 @@ class UserLogin(Resource):
             else:
                 return make_response({"error": "Username and password are required to login. Please try again"}, 400)
             
-        return make_response({"error": "User already logged in"}, 400)
 
 
 class UserLogout(Resource):
@@ -59,6 +59,7 @@ class UserLogout(Resource):
 
 class UserAccount(Resource):
     def get(self):
+        print("Session content:", session)
 
         if 'user_id' not in session:
             return make_response({"error": {"No user logged in. Please log into your account."}}, 403)

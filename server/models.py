@@ -49,7 +49,7 @@ class User (db.Model, SerializerMixin):
     
     @validates('email')
     def validate_email(self, key, email):
-        email_regex =  r'^[A-Za-z.0-9+]@[A-Za-z0-9.]+\.[A-Za-z]{2,7}$'
+        email_regex =  r'^[A-Za-z.0-9+@[A-Za-z0-9.]+\.[A-Za-z]{2,7}$'
 
         if not email:
             raise ValueError("Email is required")

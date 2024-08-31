@@ -44,7 +44,7 @@ export default function GameDetailsPage({user}) {
                                     <ul>
                                         <li><strong>Price:</strong> ${game.price}</li>
                                         <li><strong>Rating:</strong> ${game.rating}</li>
-                                        <li><strong>Released:</strong> ${new Date(game.release_date).toLocaleDateString()}</li>
+                                        <li><strong>Released:</strong> {new Date(game.release_date).toLocaleDateString()}</li>
                                         <li><strong>Developer:</strong> {game.developer}</li>
                                         <li><strong>Publisher:</strong> {game.publisher}</li>
                                         <li><strong>Platform:</strong> {game.platform}</li>
