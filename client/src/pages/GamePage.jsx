@@ -23,7 +23,7 @@ export default function GamePage() {
         .then((data) => {
             setGameData(data);
             setFilteredGames(data); // Initially show all games
-            // console.log(data)
+            console.log(data)
         })
         .catch((error) => console.error("Error with fetching games:", error));
     }, []);

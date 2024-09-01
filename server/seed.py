@@ -15,7 +15,7 @@ def seed_games():
             release_date=datetime.strptime("2015-05-19", "%Y-%m-%d").date(),
             publisher="CD Projekt",
             developer="CD Projekt Red",
-            image_url = "server/images/witcher3-bg.jpeg"
+            image_url = "images/witcher3-bg.jpeg"
         ),
         Game(
             title="Elden Ring",
@@ -28,7 +28,7 @@ def seed_games():
             release_date=datetime.strptime("2022-02-25", "%Y-%m-%d").date(),
             publisher="Bandai Namco Entertainment",
             developer="FromSoftware",
-            image_url = "server/images/eldenring-bg.jpeg"
+            image_url = "images/eldenring-bg.jpeg"
         ),
         Game(
             title="Hades",
@@ -41,7 +41,7 @@ def seed_games():
             release_date=datetime.strptime("2020-09-17", "%Y-%m-%d").date(),
             publisher="Supergiant Games",
             developer="Supergiant Games",
-            image_url = "server/images/hades-bg.jpeg"
+            image_url = "images/hades-bg.jpeg"
         ),
         Game(
             title="Helldivers 2",
@@ -54,7 +54,7 @@ def seed_games():
             release_date=datetime.strptime("2024-02-20", "%Y-%m-%d").date(),
             publisher="PlayStation Studios",
             developer="Arrowhead Game Studios",
-            image_url = "server/images/helldivers2-bg.jpeg"
+            image_url = "images/helldivers2-bg.jpeg"
         ),
         Game(
             title="Persona 5 Royal",
@@ -67,7 +67,7 @@ def seed_games():
             release_date=datetime.strptime("2019-10-31", "%Y-%m-%d").date(),
             publisher="Atlus",
             developer="Atlus",
-            image_url = "server/images/persona5-bg.jpeg"
+            image_url = "images/persona5-bg.jpeg"
         ),
         Game(
             title="Ni no Kuni",
@@ -80,7 +80,7 @@ def seed_games():
             release_date=datetime.strptime("2011-11-17", "%Y-%m-%d").date(),
             publisher="Namco Bandai Games",
             developer="Level-5",
-            image_url = "server/images/ninokuni-bg.jpeg"
+            image_url = "images/ninokuni-bg.jpeg"
         ),
         Game(
             title="King of Fighters XV",
@@ -93,7 +93,7 @@ def seed_games():
             release_date=datetime.strptime("2022-02-17", "%Y-%m-%d").date(),
             publisher="SNK",
             developer="SNK",
-            image_url = "server/images/king-of-fighters-xv-bg.jpeg"
+            image_url = "images/king-of-fighters-xv.jpeg"
         ),
         Game(
             title="The Legend of Zelda: Tears of the Kingdom",
@@ -106,7 +106,7 @@ def seed_games():
             release_date=datetime.strptime("2023-05-12", "%Y-%m-%d").date(),
             publisher="Nintendo",
             developer="Nintendo EPD",
-            image_url = "server/images/zelda-bg.jpeg"
+            image_url = "images/zelda-bg.jpeg"
         ),
         Game(
             title="Halo Infinite",
@@ -119,7 +119,7 @@ def seed_games():
             release_date=datetime.strptime("2021-12-08", "%Y-%m-%d").date(),
             publisher="Xbox Game Studios",
             developer="343 Industries",
-            image_url = "server/images/halo-bg.jpeg"
+            image_url = "images/halo-bg.jpeg"
         ),
         Game(
             title="Street Fighter V",
@@ -132,7 +132,7 @@ def seed_games():
             release_date=datetime.strptime("2016-02-16", "%Y-%m-%d").date(),
             publisher="Capcom",
             developer="Capcom",
-            image_url = "server/images/streetfighter-bg.jpeg"
+            image_url = "images/streetfighter-bg.jpeg"
         ),
         Game(
             title="Mario Kart 8 Deluxe",
@@ -145,7 +145,7 @@ def seed_games():
             release_date=datetime.strptime("2017-04-28", "%Y-%m-%d").date(),
             publisher="Nintendo",
             developer="Nintendo EPD",
-            image_url = "server/images/mario-bg.jpeg"
+            image_url = "images/mario-bg.jpeg"
         ),
         Game(
             title="FINAL FANTASY VII Remake",
@@ -158,7 +158,7 @@ def seed_games():
             release_date=datetime.strptime("2020-04-10", "%Y-%m-%d").date(),
             publisher="Square Enix",
             developer="Square Enix",
-            image_url = "server/images/finalfantasy-bg.jpeg"
+            image_url = "images/finalfantasy-bg.jpeg"
         ),
         Game(
             title="F1® 24",
@@ -171,7 +171,7 @@ def seed_games():
             release_date=datetime.strptime("2024-07-19", "%Y-%m-%d").date(),
             publisher="EA Sports",
             developer="Codemasters",
-            image_url = "server/images/f1-bg.jpeg"
+            image_url = "images/f1-bg.jpeg"
         ),
         Game(
             title="Tekken 8",
@@ -184,7 +184,7 @@ def seed_games():
             release_date=datetime.strptime("2024-01-26", "%Y-%m-%d").date(),
             publisher="Bandai Namco Entertainment",
             developer="Bandai Namco Studios",
-            image_url = "server/images/tekken8-bg.jpeg"
+            image_url = "images/tekken8-bg.jpeg"
         ),
         Game(
             title="Hollow Knight",
@@ -197,7 +197,7 @@ def seed_games():
             release_date=datetime.strptime("2017-02-24", "%Y-%m-%d").date(),
             publisher="Team Cherry",
             developer="Team Cherry",
-            image_url = "server/images/hollowknight-bg.jpeg"
+            image_url = "images/hollowknight-bg.jpeg"
         )
     ]
 

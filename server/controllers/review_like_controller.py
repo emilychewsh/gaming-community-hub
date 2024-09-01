@@ -8,7 +8,7 @@ class UpdateReviewStatus(Resource):
     def post(self):
         user_id = session.get('user_id')
         review_id = request.json.get('review_id')
-        is_like = bool(request.json.get('is_like'))
+        is_like = request.json.get('is_like')
 
         if not user_id:
             return make_response({"error": "User not logged in. Please sign in."}, 401)
@@ -32,16 +32,17 @@ class UpdateReviewStatus(Resource):
 
         if existing_like:
             existing_like.is_like = is_like
-            db.session.commit()
-            return make_response({"message": "You have already updated status of this review"}, 200)
+            message = "Like status updated successfully"
         else:
-            new_like = ReviewLike(
-                user_id=user_id, 
-                review_id=review_id, 
-                is_like=is_like)
+            new_like = ReviewLike(user_id=user_id, review_id=review_id, is_like=is_like)
             db.session.add(new_like)
-            db.session.commit()
-            return make_response({"message": "Like status updated successfully"}, 201)
+            message = "Like status added successfully"
+        
+        db.session.commit()
+
+        # Return the updated count of likes
+        likes_count = ReviewLike.query.filter_by(review_id=review_id, is_like=True).count()
+        return make_response({"message": message, "likes_count": likes_count}, 200)
         
 class RemoveReviewStatus(Resource):
     def delete(self, review_id):
@@ -56,4 +57,6 @@ class RemoveReviewStatus(Resource):
         
         db.session.delete(existing_like)
         db.session.commit()
-        return make_response({"message": "Like/dislike removed successfully"}, 200)
+        
+        likes_count = ReviewLike.query.filter_by(review_id=review_id, is_like=True).count()
+        return make_response({"message": "Like/dislike removed successfully", "likes_count": likes_count}, 200)
