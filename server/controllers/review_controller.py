@@ -32,6 +32,7 @@ class AddReview(Resource):
         review = Review(
         user_id=user_id,
         game_id=game_id,
+        title=request.json.get('title'),
         content=request.json.get('content'),
         rating=request.json.get('rating')
         )

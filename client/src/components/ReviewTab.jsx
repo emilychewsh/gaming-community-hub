@@ -7,7 +7,7 @@ import { AppContext } from '../AppContext';
 export default function ReviewTab() {
     const {gameId} = useParams();
     const [reviews, setReviews] = useState([]);
-    const [newReview, setNewReview] = useState({ content: '', rating: 0});
+    const [newReview, setNewReview] = useState({ title: '', content: '', rating: 0});
     const { user } = useContext(AppContext);
 
     useEffect(() => {
@@ -41,7 +41,7 @@ export default function ReviewTab() {
         })
         .then((data) => {
             setReviews([...reviews, data.review]);
-            setNewReview({ content: '', rating: 0 })
+            setNewReview({ title: '', content: '', rating: 0 })
         })
     }
 
@@ -52,7 +52,7 @@ export default function ReviewTab() {
                 {reviews.length > 0 ? (
                     reviews.map(review => (
                         <div key={review.id}>
-                            <p><strong>{review.author.username || review.author}</strong>: {review.content} (Rating: {review.rating})</p>
+                            <p><strong>{review.author.username || review.author}</strong>: {review.title} - {review.content} (Rating: {review.rating})</p>
                             <p><em>Posted on: {new Date(review.created_at).toLocaleDateString()}</em></p>
                         </div>
                     ))
@@ -61,8 +61,18 @@ export default function ReviewTab() {
                 )}
             </div>
             {user && (
-
                 <Form onSubmit={handleSubmit}>
+                    <Form.Group className="mb-3" controlId="Title">
+                    <Form.Label>Review Title:</Form.Label>
+                    <Form.Control 
+                        type="text"
+                        placeholder="Enter a title for your review" 
+                        value={newReview.title}
+                        onChange={(e) => setNewReview({ ...newReview, title: e.target.value })}
+                        required
+                    />
+                    </Form.Group>
+
                     <Form.Group className="mb-3" controlId="Content">
                     <Form.Label>Write your review:</Form.Label>
                     <Form.Control 

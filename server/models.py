@@ -125,6 +125,7 @@ class Review(db.Model, SerializerMixin):
     __tablename__ = "reviews"
 
     id = db.Column(db.Integer, primary_key=True) 
+    title = db.Column(db.String, nullable=False)
     content = db.Column(db.String, nullable=False)
     rating = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.Date, nullable=False, default=datetime.utcnow)
