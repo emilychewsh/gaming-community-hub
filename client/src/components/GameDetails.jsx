@@ -8,7 +8,8 @@ export default function GameDetailsPage() {
     const { gameId } = useParams(); //get gameId from URL params
     const [game, setGame] = useState(null);
     const { user } = useContext(AppContext);
-    const [message, setMessage] = useState('');
+    const [message, setMessage] = useState('')
+    const [isInWishlist, setIsInWishlist] = useState(false)
 
     useEffect(() => {
         fetch(`/games/${gameId}`)
@@ -17,23 +18,41 @@ export default function GameDetailsPage() {
             setGame(data)
         })
         .catch((error) => console.error("Error fetching game details:", error))
-    }, [gameId])
+
+        if (user) {
+            fetch(`/favourites/${gameId}`)
+            .then(resp => resp.json())
+            .then(data => {
+                if (!data.error) {
+                    setIsInWishlist(true)
+                }
+            })
+        }
+    }, [gameId, user])
 
 
-    const handleAddToWishlist = () => {
+    //Handle wishlist toggle 
+    const handleWishlistToggle = () => {
         if (!user) {
             alert("Please log in to add to your wishlist.");
             return;
         }
 
-        fetch('/favourites/add', {
-            method: 'POST',
+        const url = isInWishlist ? '/favourites/remove' : '/favourites/add'
+        const method = isInWishlist ? 'DELETE' : 'POST'
+
+        fetch(url, {
+            method: method,
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ game_id: gameId })
         })
             .then(resp => resp.json())
-            .then(data => setMessage(data.message))
-            .catch(error => console.error("Error adding to wishlist:", error));
+            .then(data => {
+                setMessage(data.message)
+                setIsInWishlist(!isInWishlist)
+                setTimeout(() => setMessage(''), 3000)
+            })
+            .catch(error => console.error(`Error ${isInWishlist ? 'removing from' : 'adding to'} wishlist:`, error))
     }
 
 
@@ -45,7 +64,10 @@ export default function GameDetailsPage() {
                     <div className="overlay">
                         <h1>{game.title}</h1>
                         <p>{game.genre}</p>
-                        <button onClick={handleAddToWishlist}>Add to Wishlist</button>
+                        <button onClick={handleWishlistToggle}>
+                            {isInWishlist ? 'On Wishlist' : 'Add to Wishlist'}
+                        </button>
+                        {message && <div className="popup-message">{message}</div>}
                     </div>
                 </div>
 
