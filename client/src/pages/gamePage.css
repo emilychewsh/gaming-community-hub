@@ -1,0 +1,23 @@
+.card-img-top {
+    height: 180px;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.card-body {
+    text-align: center;
+}
+
+.card {
+    height: 100%;
+    display: flex;
+    padding: 0px;
+    flex-direction: column; 
+    justify-content: space-between; 
+}
+
+.col-xl-3, .col-lg-4, .col-md-6 {
+    display: flex;
+    flex: 1 0 auto;
+}

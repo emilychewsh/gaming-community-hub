@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom"
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import { AppContext } from '../AppContext';
+import './gamePage.css'
 
 export default function GamePage() {
     const [gameData, setGameData] = useState([]);
@@ -23,7 +24,7 @@ export default function GamePage() {
         .then((data) => {
             setGameData(data);
             setFilteredGames(data); // Initially show all games
-            console.log(data)
+            // console.log(data)
         })
         .catch((error) => console.error("Error with fetching games:", error));
     }, []);
@@ -49,16 +50,15 @@ export default function GamePage() {
     return (
         <div className="row">
             {filteredGames.map(game=> (
-                <div key={game.id} className="col-xl-3 col-lg-4 col-md-6">
+                <div key={game.id} className="col-xl-3 col-lg-4 col-md-6 mb-5">
                     <Card 
-                        bg="light"
-                        style={{ width: '18rem', cursor: 'pointer' }}
-                        border="dark"
-                        onClick={() => handleGameClick(game.id)}>
-                        <Card.Img variant="top" src={game.image_url} alt={game.title} />
+                    bg="light"
+                    style={{ width: '18rem', cursor: 'pointer' }}
+                    border="dark"
+                    onClick={() => handleGameClick(game.id)}>
+                        <Card.Img variant="top" src={game.image_url} alt={game.title}/>
                         <Card.Body>
                             <Card.Title>{game.title}</Card.Title>
-                            <Card.Text>{game.description}</Card.Text>
                             <Button variant="primary" onClick={() => handleGameClick(game.id)}>View Details</Button>
                         </Card.Body>
                         </Card>

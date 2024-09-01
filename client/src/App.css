@@ -1,9 +1,12 @@
 #root {
   max-width: 1280px;
-  margin: 0 auto;
+  margin: auto;
+  margin-top: 100px;
   padding: 2rem;
   text-align: center;
 }
+
+
 
 .logo {
   height: 6em;
@@ -18,14 +21,6 @@
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
 
 @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
