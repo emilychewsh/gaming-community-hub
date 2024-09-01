@@ -33,7 +33,8 @@ export default function WishlistPage() {
 
     }
 
-    if (!user) return <p>Please log in to view your wishlist.</p>;
+    if (!user) return <p>Please log in to view your wishlist.<br />
+    Click here to login!</p>;
 
     return (
         <div className='row'>
