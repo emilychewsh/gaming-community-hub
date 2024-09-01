@@ -2,6 +2,10 @@ import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Card from 'react-bootstrap/Card';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import { FaThumbsUp, FaThumbsDown } from 'react-icons/fa'
 import { AppContext } from '../AppContext';
 
 export default function ReviewTab() {
@@ -45,21 +49,55 @@ export default function ReviewTab() {
         })
     }
 
+    const handleLikeDislike = (reviewId, isLike) => {
+        fetch('/reviews/like', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ review_id: reviewId, is_like: isLike }),
+        })
+        .then((resp) => resp.json())
+        .then((data) => {
+            setReviews((prevReviews) =>
+                prevReviews.map((review) =>
+                    review.id === reviewId ? { ...review, likes_count: data.likes_count } : review
+                )
+            )
+        })
+    }
+
     return (
         <div>
             <h3>Reviews</h3>
-            <div>
+            <Row>
                 {reviews.length > 0 ? (
-                    reviews.map(review => (
-                        <div key={review.id}>
-                            <p><strong>{review.author.username || review.author}</strong>: {review.title} - {review.content} (Rating: {review.rating})</p>
-                            <p><em>Posted on: {new Date(review.created_at).toLocaleDateString()}</em></p>
-                        </div>
+                    reviews.map((review) => (
+                        <Col key={review.id} md={6} className="mb-4">
+                            <Card>
+                                <Card.Body>
+                                    <Card.Title>{review.title}</Card.Title>
+                                    <Card.Text>{review.content}</Card.Text>
+                                    <Card.Footer className="text-muted">
+                                        Written by {review.author.username || review.author} on {new Date(review.created_at).toLocaleDateString()}
+                                    </Card.Footer>
+                                    <Card.Footer>
+                                        <Button variant="link" onClick={() => handleLikeDislike(review.id, true)}>
+                                            <FaThumbsUp /> {review.likes_count} liked this review
+                                        </Button>
+                                        <Button variant="link" onClick={() => handleLikeDislike(review.id, false)}>
+                                            <FaThumbsDown />
+                                        </Button>
+                                    </Card.Footer>
+                                </Card.Body>
+                            </Card>
+                        </Col>
                     ))
                 ) : (
                     <p>No reviews yet. Be the first to write one!</p>
                 )}
-            </div>
+            </Row>
+
             {user && (
                 <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3" controlId="Title">
