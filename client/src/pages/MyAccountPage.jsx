@@ -2,6 +2,8 @@ import { useEffect, useState, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import { Container, Form, Button, Modal } from "react-bootstrap"
 import { AppContext } from "../AppContext"
+import './myAccountPage.css'
+
 
 export default function MyAccountPage() {
     const [user, setUser] = useState(null)
@@ -89,9 +91,9 @@ export default function MyAccountPage() {
 
     return(
         
-        <Container className="my-5">
-            <h2>My Account</h2>
-            <Form>
+        <Container className='myaccount-container'>
+            <h2 className="myaccount-title">My Account</h2>
+            <Form className="myaccount-form">
                 <Form.Group controlId="username">
                     <Form.Label>Username</Form.Label>
                     <Form.Control type="text" value={user.username} disabled />

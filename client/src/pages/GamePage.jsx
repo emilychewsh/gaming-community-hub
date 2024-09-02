@@ -20,7 +20,7 @@ export default function GamePage() {
 
     // Fetch game data from API
     useEffect(() => {
-        fetch('http://localhost:4000/games')
+        fetch('/games')
         .then((resp) => resp.json())
         .then((data) => {
             setGameData(data);
