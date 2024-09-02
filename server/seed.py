@@ -50,7 +50,7 @@ def seed_games():
             description="The Galaxy’s Last Line of Offence. Enlist in the Helldivers and join the fight for freedom across a hostile galaxy in a fast, frantic, and ferocious third-person shooter.",
             rating=82,
             platform="Available on PS5 and Windows",
-            trailer_url="https://youtu.be/UC5EpJR0GBQ?si=pAkEaT5KqgHfYpjs",
+            trailer_url="https://www.youtube.com/embed/UC5EpJR0GBQ?si=gt6cWZyf5v7mY6xv",
             release_date=datetime.strptime("2024-02-20", "%Y-%m-%d").date(),
             publisher="PlayStation Studios",
             developer="Arrowhead Game Studios",

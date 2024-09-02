@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
+
+.game-hero {
+    background-color: #f8f9fa; 
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.game-hero h1 {
+    font-family: 'Russo One', sans-serif;
+}
+
+.overlay {
+    position: relative;
+    color: #333;
+}
+
+.popup-message {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: #ffd700; 
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.game-details-container {
+    margin-top: 20px; 
+    padding: 20px;
+    background: #f8f9fa; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
+}
+
+.game-description {
+    margin: 20px;
+}
+.game-info {
+    margin-top: 30px;
+    text-align: left;
+}

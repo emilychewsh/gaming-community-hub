@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { Container, Row, Col, Tab, Tabs } from 'react-bootstrap';
 import ReviewTab from "./ReviewTab";
 import { AppContext } from '../AppContext';
+import './gameDetails.css'; 
 
 export default function GameDetailsPage() {
     const { gameId } = useParams(); //get gameId from URL params
@@ -71,17 +72,13 @@ export default function GameDetailsPage() {
                     </div>
                 </div>
 
-                <Container className="mt-5">
+                <Container className="game-details-container">
                     <Tabs defaultActiveKey="details" id="game-details-tabs" className="mb-3">
                         <Tab eventKey="details" title="Game Details">
                             <Row>
-                                <Col md>
-                                    <h2>Description</h2>
-                                    <p>{game.description}</p>
-                                </Col>
-                                <Col md={4}>
+                                <Col md={5}>
                                     <iframe
-                                        width="560"
+                                        width="100%"
                                         height="315"
                                         src={game.trailer_url}
                                         frameborder="0"
@@ -89,20 +86,20 @@ export default function GameDetailsPage() {
                                         referrerpolicy="strict-origin-when-cross-origin"
                                         allowFullScreen
                                     ></iframe>
-                            </Col>
-                            </Row>
-
-                            <Row>
-                                <Col md>
-                                    <h3>Game Info</h3>
-                                    <ul>
-                                        <li><strong>Price:</strong> ${game.price}</li>
-                                        <li><strong>Rating:</strong> ${game.rating}</li>
-                                        <li><strong>Released:</strong> {new Date(game.release_date).toLocaleDateString()}</li>
-                                        <li><strong>Developer:</strong> {game.developer}</li>
-                                        <li><strong>Publisher:</strong> {game.publisher}</li>
-                                        <li><strong>Platform:</strong> {game.platform}</li>
-                                    </ul>
+                                </Col>
+                                <Col md={7}>
+                                    {/* <img src={`/${game.image_url}`} alt={game.title} style={{ width: '200px', height: 'auto' }} /> */}
+                                    <div className="game-description">
+                                        <p>{game.description}</p>
+                                    </div>
+                                    <div className="game-info">
+                                        <strong>Price:</strong> ${game.price} <br />
+                                        <strong>Rating:</strong> ${game.rating} <br />
+                                        <strong>Released:</strong> {new Date(game.release_date).toLocaleDateString()} <br />
+                                        <strong>Developer:</strong> {game.developer} <br />
+                                        <strong>Publisher:</strong> {game.publisher} <br />
+                                        <strong>Platform:</strong> {game.platform} <br />
+                                    </div>
                                 </Col>
                             </Row>
                         </Tab>
