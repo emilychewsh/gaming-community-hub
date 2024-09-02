@@ -2,6 +2,7 @@ import { useState, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import { Form, Button, Alert, Container } from 'react-bootstrap'
 import { AppContext } from '../AppContext';
+import './loginPage.css';
 
 export default function LoginPage() {
     const [formData, setFormData] = useState({username: "", password: ""})
@@ -40,9 +41,9 @@ export default function LoginPage() {
     }
 
     return(
-        <Container className="mt-5">
-            <h2>Login</h2>
-            <Form onSubmit={handleSubmit}>
+        <Container className="login-container">
+            <h2 className="login-title">Login</h2>
+            <Form onSubmit={handleSubmit} className="login-form">
                 <Form.Group controlId="username">
                     <Form.Label>Username</Form.Label>
                     <Form.Control

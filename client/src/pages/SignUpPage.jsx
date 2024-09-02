@@ -2,6 +2,7 @@ import { useEffect, useState, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import { Form, Button, Alert, Container } from 'react-bootstrap'
 import { AppContext } from '../AppContext';
+import './signUpPage.css';
 
 export default function SignUpPage() {
     const [formData, setFormData] = useState({
@@ -46,10 +47,10 @@ export default function SignUpPage() {
 
 
     return(
-        <Container className="mt-5">
-            <h2>Sign Up</h2>
+        <Container className="signup-container">
+            <h2 className="signup-title">Sign Up</h2>
             {error && <Alert variant="danger">{error}</Alert>}
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit} className="signup-form">
                 <Form.Group controlId="username">
                 <Form.Label>Username</Form.Label>
                 <Form.Control
