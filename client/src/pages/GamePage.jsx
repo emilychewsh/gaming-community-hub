@@ -2,6 +2,7 @@ import { useEffect, useState, useContext } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
+import { Container } from 'react-bootstrap'
 import { AppContext } from '../AppContext';
 import './gamePage.css'
 
@@ -48,24 +49,23 @@ export default function GamePage() {
     }
 
     return (
-        <div className="row">
-            {filteredGames.map(game=> (
-                <div key={game.id} className="col-xl-3 col-lg-4 col-md-6 mb-5">
-                    <Card 
-                    bg="light"
-                    style={{ width: '18rem', cursor: 'pointer' }}
-                    border="dark"
-                    onClick={() => handleGameClick(game.id)}>
-                        <Card.Img variant="top" src={game.image_url} alt={game.title}/>
-                        <Card.Body>
-                            <Card.Title>{game.title}</Card.Title>
-                            <Button variant="primary" onClick={() => handleGameClick(game.id)}>View Details</Button>
-                        </Card.Body>
-                        </Card>
-                </div>
-            ))}
-
-        </div>
-
+        <Container className="game-container">
+            <div className="row">
+                {filteredGames.map(game=> (
+                    <div key={game.id} className="col-xl-3 col-lg-4 col-md-6 mb-5">
+                        <Card 
+                        className="game-card"
+                        style={{ width: '18rem'}}
+                        onClick={() => handleGameClick(game.id)}>
+                            <Card.Img variant="top" src={game.image_url} alt={game.title}/>
+                            <Card.Body>
+                                <Card.Title>{game.title}</Card.Title>
+                                <Button variant="primary" onClick={() => handleGameClick(game.id)} style={{ marginTop: '1rem' }}>View Details</Button>
+                            </Card.Body>
+                            </Card>
+                    </div>
+                ))}
+            </div>
+        </Container>
     );
 }

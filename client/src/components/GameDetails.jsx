@@ -108,7 +108,7 @@ export default function GameDetailsPage() {
                                         src={game.trailer_url}
                                         frameborder="0"
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                        referrerpolicy="strict-origin-when-cross-origin"
+                                        referrerPolicy="strict-origin-when-cross-origin"
                                         allowFullScreen
                                     ></iframe>
                                 </Col>
