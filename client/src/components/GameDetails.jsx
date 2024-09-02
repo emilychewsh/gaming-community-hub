@@ -79,6 +79,17 @@ export default function GameDetailsPage() {
                                     <h2>Description</h2>
                                     <p>{game.description}</p>
                                 </Col>
+                                <Col md={4}>
+                                    <iframe
+                                        width="560"
+                                        height="315"
+                                        src={game.trailer_url}
+                                        frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        referrerpolicy="strict-origin-when-cross-origin"
+                                        allowFullScreen
+                                    ></iframe>
+                            </Col>
                             </Row>
 
                             <Row>
