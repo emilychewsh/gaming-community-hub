@@ -26,7 +26,17 @@
     border-radius: 8px;
 }
 
+.game-image {
+    width: 80%; 
+    height: 300px; 
+    object-fit: cover; 
+    margin-bottom: 20px;
+}
+
 .game-details-container {
+    display: flex;
+    flex-wrap: wrap; 
+    align-items: flex-start; 
     margin-top: 20px; 
     padding: 20px;
     background: #f8f9fa; 
@@ -40,4 +50,18 @@
 .game-info {
     margin-top: 30px;
     text-align: left;
+}
+
+.game-description, .game-info {
+    flex: 1;
+}
+
+.game-box {
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+
+
+.trailer-container {
+    margin: 50;
 }

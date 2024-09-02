@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
-import { Container, Row, Col, Tab, Tabs } from 'react-bootstrap';
+import { Container, Row, Col, Tab, Tabs, Button} from 'react-bootstrap';
 import ReviewTab from "./ReviewTab";
 import { AppContext } from '../AppContext';
 import './gameDetails.css'; 
@@ -64,21 +64,46 @@ export default function GameDetailsPage() {
             <div className="game-hero">
                     <div className="overlay">
                         <h1>{game.title}</h1>
-                        <p>{game.genre}</p>
-                        <button onClick={handleWishlistToggle}>
-                            {isInWishlist ? 'On Wishlist' : 'Add to Wishlist'}
-                        </button>
-                        {message && <div className="popup-message">{message}</div>}
                     </div>
                 </div>
 
                 <Container className="game-details-container">
                     <Tabs defaultActiveKey="details" id="game-details-tabs" className="mb-3">
                         <Tab eventKey="details" title="Game Details">
-                            <Row>
+                            <Row className="game-box">
                                 <Col md={5}>
+                                    <img src={`/${game.image_url}`} alt={game.title} className="game-image" />
+                                    <Button variant={isInWishlist ? 'success' : 'primary'} onClick={handleWishlistToggle}>
+                                        {isInWishlist ? 'On Wishlist' : 'Add to Wishlist'}
+                                    </Button>
+                                    {message && <div className="popup-message">{message}</div>}
+                                </Col>
+
+                                <Col md={7}>
+                                    <div className="game-description">
+                                        <p><strong>{game.description}</strong></p>
+                                    </div>
+
+                                    <div className="game-info">
+                                        <strong>Price:</strong> {game.genre} <br />
+                                        <strong>Price:</strong> ${game.price} <br />
+                                        <strong>Rating:</strong> ${game.rating} <br />
+                                        <strong>Released:</strong> {new Date(game.release_date).toLocaleDateString()} <br />
+                                        <strong>Developer:</strong> {game.developer} <br />
+                                        <strong>Publisher:</strong> {game.publisher} <br />
+                                        <strong>Platform:</strong> {game.platform} <br />
+                                    </div>
+
+                                </Col>
+                            </Row>
+
+                    
+
+                            <Row className="trailer-container">
+                                <Col md>
+                                    <h4>Check out the trailer!</h4>
                                     <iframe
-                                        width="100%"
+                                        width="50%"
                                         height="315"
                                         src={game.trailer_url}
                                         frameborder="0"
@@ -87,22 +112,9 @@ export default function GameDetailsPage() {
                                         allowFullScreen
                                     ></iframe>
                                 </Col>
-                                <Col md={7}>
-                                    {/* <img src={`/${game.image_url}`} alt={game.title} style={{ width: '200px', height: 'auto' }} /> */}
-                                    <div className="game-description">
-                                        <p>{game.description}</p>
-                                    </div>
-                                    <div className="game-info">
-                                        <strong>Price:</strong> ${game.price} <br />
-                                        <strong>Rating:</strong> ${game.rating} <br />
-                                        <strong>Released:</strong> {new Date(game.release_date).toLocaleDateString()} <br />
-                                        <strong>Developer:</strong> {game.developer} <br />
-                                        <strong>Publisher:</strong> {game.publisher} <br />
-                                        <strong>Platform:</strong> {game.platform} <br />
-                                    </div>
-                                </Col>
                             </Row>
                         </Tab>
+
                         <Tab eventKey="reviews" title="Reviews">
                             <ReviewTab />
                         </Tab>
