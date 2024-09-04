@@ -4,10 +4,12 @@ import Card from 'react-bootstrap/Card'
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
+import { useNavigate } from 'react-router-dom';
 
 export default function WishlistPage() {
     const { user } = useContext(AppContext)
     const [wishlist, setWishlist] = useState([])
+    const navigate = useNavigate()
 
     useEffect(() => {
         if (user) {
@@ -33,6 +35,10 @@ export default function WishlistPage() {
 
     }
 
+    const handleNavigate = (gameId) => {
+        navigate(`/games/${gameId}`)
+    }
+
     if (!user) return <p>Please log in to view your wishlist.<br />
     Click here to login!</p>;
 
@@ -42,18 +48,18 @@ export default function WishlistPage() {
             {wishlist.length === 0 ? (
                 <p>Your wishlist is empty.</p>
             ) : (
-                <Row>
+                <Row className="g-4">
                     {wishlist.map(game => (
                         <Col key={game.id} sm={12} md={6} lg={4} xl={3}>
-                            <Card className="mb-4">
+                            <Card className="mb-4" style={{ width: '18rem' }}>
                             <Card.Img variant="top" src={game.game.image_url} alt={game.title} />
                                 <Card.Body>
                                     <Card.Title>{game.game.title}</Card.Title>
-                                    <Card.Text>
-                                        {game.game.description}
-                                    </Card.Text>
                                     <Button variant="danger" onClick={() => handleRemoveFromWishlist(game.game.id)}>
                                         Remove from Wishlist
+                                    </Button>
+                                    <Button variant="primary" onClick={()=> handleNavigate(game.game.id)} style={{ marginTop: '10px' }} >
+                                        View Details
                                     </Button>
                                 </Card.Body>
                             </Card>

@@ -78,7 +78,6 @@ export default function GameDetailsPage() {
                                     </Button>
                                     {message && <div className="popup-message">{message}</div>}
                                 </Col>
-
                                 <Col md={7}>
                                     <div className="game-description">
                                         <p><strong>{game.description}</strong></p>
