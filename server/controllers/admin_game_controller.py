@@ -1,3 +1,5 @@
+import os
+from werkzeug.utils import secure_filename
 from flask_restful import Resource
 from config import db 
 from models import User, Game
@@ -24,20 +26,48 @@ class AdminAddGame(AdminBaseResource):
         if not user_id or not self.is_admin(user_id):
             return make_response({"error": "Admin access required"}, 403)
         
-        release_date_string = request.json.get('release_date')
-        release_date = datetime.strptime(release_date_string, '%Y-%m-%d')
         
+        title = request.form.get('title')
+        genre = request.form.get('genre')
+        price = request.form.get('price')
+        description = request.form.get('description')
+        rating = request.form.get('rating')
+        platform = request.form.get('platform')
+        trailer_url = request.form.get('trailer_url')
+        release_date_str = request.form.get('release_date')
+        developer = request.form.get('developer')
+        publisher = request.form.get('publisher')
+
+        #date conversion
+        try:
+            release_date = datetime.strptime(release_date_str, '%Y-%m-%d')
+        except ValueError:
+            return make_response({"error": "Invalid date format. Use YYYY-MM-DD"}, 400)
+        
+        #Handle image upload
+        image = request.files.get('image_url')
+        
+        if image:
+            filename = secure_filename(image.filename)
+            image_path = os.path.join('client', 'public', 'images', filename)
+            image.save(image_path)
+            image_url = '/image/' + filename  # storing just the file name in db
+        else:
+            image_url = "default.jpg"
+
+        # create new Game instance
         game = Game(
-            title = request.json.get('title'),
-            genre = request.json.get('genre'),
-            price = request.json.get('price'),
-            description = request.json.get('description'),
-            rating = request.json.get('rating'),
-            platform = request.json.get('platform'),
-            trailer_url = request.json.get('trailer_url'),
-            release_date = release_date,
-            developer = request.json.get('developer'),
-            publisher = request.json.get('publisher')
+            title=title,
+            genre=genre,
+            price=price,
+            description=description,
+            rating=rating,
+            platform=platform,
+            trailer_url=trailer_url,
+            release_date=release_date,
+            developer=developer,
+            publisher=publisher,
+            image_url=image_url
         )
 
         db.session.add(game)

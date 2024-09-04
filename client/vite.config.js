@@ -26,6 +26,11 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/favourites/, '/favourites'),
       },
+      '/admin': {
+        target: 'http://localhost:4000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/admin/, '/admin'),
+      },
     },
   },
 })
