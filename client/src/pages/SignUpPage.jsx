@@ -42,7 +42,7 @@ export default function SignUpPage() {
                 navigate('/games')
             }
         })
-        .catch((err) => setError(err.message)) // Handle errors
+        .catch((err) => setError(err.message)) 
         }
 
 

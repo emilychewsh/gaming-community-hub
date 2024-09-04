@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
 
 .game-container {
-    max-width: 1400px;  /* Adjusted width for better spacing of game cards */
-    margin: 2rem auto; /* Centers the container with margin from the top and bottom */
+    max-width: 1400px;  
+    margin: 2rem auto; 
     padding: 2rem;
-    background: #f8f9fa;  /* Light grey background */
-    border-radius: 8px;  /* Rounded corners */
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);  /* Subtle shadow for depth */
+    background: #f8f9fa;  
+    border-radius: 8px;  
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);  
 }
 
 

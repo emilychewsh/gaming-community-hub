@@ -1,14 +1,13 @@
 import { useEffect, useState, useContext } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
-import Card from 'react-bootstrap/Card'
-import Button from 'react-bootstrap/Button'
-import { Container } from 'react-bootstrap'
+import { Card, Button, Container, Form, InputGroup } from 'react-bootstrap'
 import { AppContext } from '../AppContext';
 import './gamePage.css'
 
 export default function GamePage() {
     const [gameData, setGameData] = useState([]);
     const [filteredGames, setFilteredGames] = useState([]);
+    const [searchGame, setSearchGame] = useState("")
     const navigate = useNavigate();
     const location = useLocation();
     const { user } = useContext(AppContext);
@@ -24,32 +23,52 @@ export default function GamePage() {
         .then((resp) => resp.json())
         .then((data) => {
             setGameData(data);
-            setFilteredGames(data); // Initially show all games
+            filterGames(data); // Set filteredGames based on initial fetch
             // console.log(data)
         })
         .catch((error) => console.error("Error with fetching games:", error));
     }, []);
 
-    // Handle genre filtering based on query parameter
-    useEffect(() => {
-        const params = getQueryParams(location.search);
-        const genre = params.get('genre');
-        
-        if (genre) {
-            const filtered = gameData.filter(game => game.genre === genre);
-            setFilteredGames(filtered);
-        } else {
-            setFilteredGames(gameData);
-        }
-    }, [location.search, gameData]);
 
-    // Navigate to game details page
+    useEffect(() => {
+        filterGames(gameData)
+    }, [location.search, gameData, searchGame])
+
+
+    const filterGames = (games) => {
+        const params = getQueryParams(location.search)
+        const genre = params.get('genre')
+        let filtered = games
+
+        if (genre) {
+            filtered = filtered.filter(game => game.genre === genre);
+        }
+        if (searchGame) {
+            filtered = filtered.filter(game => game.title.toLowerCase().includes(searchGame.toLowerCase()));
+        }
+        setFilteredGames(filtered);
+    }
+
+    // Navigate to game details page for 'view details' button
     const handleGameClick = (gameId) => {
         navigate(`/games/${gameId}`);
     }
 
+    const handleSearchChange = (e) => {
+        setSearchGame(e.target.value);
+    };
+
     return (
+        
         <Container className="game-container">
+            <InputGroup className="mb-3">
+                <Form.Control
+                    placeholder="Search for games..."
+                    aria-label="Search games"
+                    value={searchGame}
+                    onChange={handleSearchChange}
+                />
+            </InputGroup>
             <div className="row">
                 {filteredGames.map(game=> (
                     <div key={game.id} className="col-xl-3 col-lg-4 col-md-6 mb-5">

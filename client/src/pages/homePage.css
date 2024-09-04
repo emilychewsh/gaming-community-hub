@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
+
 .carousel-item img {
     width: 100%;  
-    height: 500px; 
+    height: 700px; 
     object-fit: cover; 
 }
 
@@ -8,4 +10,5 @@
     background-color: rgba(0, 0, 0, 0.5); 
     padding: 1rem;
     border-radius: 4px;
+    font-family: 'Russo One', sans-serif;
 }

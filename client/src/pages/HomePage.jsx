@@ -12,7 +12,7 @@ function HomePage() {
   useEffect(() => {
       fetch('/games')  //fetch games
       .then(response => response.json())
-      .then(allGames => setGames(allGames.slice(1, 4)))
+      .then(allGames => setGames(allGames.slice(2, 5)))
   }, [])
 
   const handleNavigate = () => {
@@ -21,7 +21,7 @@ function HomePage() {
 
   return (
     <div>
-    <Carousel fade>
+    <Carousel>
         {games.map((game, index)=> (
             <Carousel.Item key={index}>
                 <img
@@ -31,7 +31,6 @@ function HomePage() {
                 />
                 <Carousel.Caption>
                     <h3>{game.title}</h3>
-                    <p>{game.description}</p>
                 </Carousel.Caption>
             </Carousel.Item>
         ))}

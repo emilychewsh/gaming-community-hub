@@ -5,6 +5,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link } from 'react-router-dom';
 import { AppContext } from '../AppContext';
+import logoImage from '/home/emilychew/Development/code/phase-4/gaming-community-hub/client/images/quest-logo.png'
 
 function NavBar() {
   const { user, handleLogout } = useContext(AppContext)
@@ -12,7 +13,14 @@ function NavBar() {
   return (
     <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary" fixed="top" >
       <Container>
-        <Navbar.Brand href="/">Gaming Hub</Navbar.Brand>
+        <Navbar.Brand href="/">
+           <img
+            src={logoImage}
+            width="100" 
+            height="100" 
+            className="d-inline-block align-top"
+            alt="Gaming Hub Logo" />
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">

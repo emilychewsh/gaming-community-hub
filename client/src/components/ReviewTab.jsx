@@ -69,7 +69,6 @@ export default function ReviewTab() {
 
     return (
         <div>
-            <h3>Reviews</h3>
             <Row>
                 {reviews.length > 0 ? (
                     reviews.map((review) => (
