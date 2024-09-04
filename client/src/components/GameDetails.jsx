@@ -73,7 +73,7 @@ export default function GameDetailsPage() {
                             <Row className="game-box">
                                 <Col md={5}>
                                     <img src={`/${game.image_url}`} alt={game.title} className="game-image" />
-                                    <Button variant={isInWishlist ? 'success' : 'primary'} onClick={handleWishlistToggle}>
+                                    <Button variant={isInWishlist ? 'danger' : 'primary'} onClick={handleWishlistToggle}>
                                         {isInWishlist ? 'Remove From Wishlist' : 'Add to Wishlist'}
                                     </Button>
                                     {message && <div className="popup-message">{message}</div>}

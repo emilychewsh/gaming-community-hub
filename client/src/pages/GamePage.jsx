@@ -23,7 +23,7 @@ export default function GamePage() {
         release_date: "",
         developer: "",
         publisher: "",
-        image: "",
+        image_url: "",
     })
 
     // Function to parse query parameters from URL
@@ -107,7 +107,7 @@ export default function GamePage() {
                 release_date: "",
                 developer: "",
                 publisher: "",
-                image: "",
+                image_url: "",
             });
             console.log(newGame)
         })

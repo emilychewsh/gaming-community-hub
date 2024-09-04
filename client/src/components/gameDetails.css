@@ -35,13 +35,25 @@
 
 .game-details-container {
     display: flex;
-    flex-wrap: wrap; 
+    flex-direction: column;
     align-items: flex-start; 
     margin-top: 20px; 
     padding: 20px;
     background: #f8f9fa; 
     border-radius: 8px; 
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    max-width: 1200px;
+    margin-left: auto; 
+    margin-right: auto;
+
+}
+
+.tab-content {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    width: 100%; 
+    padding: 20px;
 }
 
 .game-description {
@@ -61,7 +73,15 @@
     margin-top: 30px;
 }
 
-
 .trailer-container {
     margin: 50;
+}
+
+.row {
+    justify-content: start;
+}
+
+.col-xl-3, .col-lg-4, .col-md-6 {
+    display: flex;
+    flex: 1 0 auto;
 }
