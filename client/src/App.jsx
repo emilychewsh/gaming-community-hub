@@ -11,6 +11,7 @@ import LoginPage from './pages/LoginPage'
 import IndexPage from './pages/IndexPage'
 import WishlistPage from './pages/WishlistPage'
 import MyAccountPage from './pages/MyAccountPage'
+import MyReviewsPage from './pages/MyReviewsPage'
 import { AppProvider } from './AppContext'
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
             <Route path='games/:gameId' element={<GameDetailsPage />} />
             <Route path="/wishlist" element={<WishlistPage />} />
             <Route path="/myaccount" element={<MyAccountPage />} />
+            <Route path='/myreviews' element={<MyReviewsPage />} />
           </Route>
           
         </Routes>

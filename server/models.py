@@ -133,6 +133,8 @@ class Review(db.Model, SerializerMixin):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     game_id = db.Column(db.Integer, db.ForeignKey('games.id'))
 
+    game = db.relationship("Game", backref="reviews") #added this to add relationship with game model, access attr
+
     serialize_rules = ('-user.favourites', '-game.favourites', '-user.reviews', '-game.reviews', '-author.reviews', )
 
     def __repr__(self):

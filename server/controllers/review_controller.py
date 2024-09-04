@@ -1,7 +1,7 @@
 from flask_restful import Resource
 from config import db 
 from models import User, Game, Review
-from flask import make_response, session, request
+from flask import make_response, session, request, jsonify
 
 
 class AddReview(Resource):
@@ -80,11 +80,12 @@ class GetAllReviews(Resource):
         if not user:
             return make_response({"error": "User not found"}, 404)
         
-        reviews = [review.to_dict() for review in user.reviews]
-        if not reviews:
-            return make_response({"error": "No reviews yet"}, 404)
-        
-        return make_response({'reviews': reviews}, 200)
+        reviews = user.reviews
+        if reviews:
+            reviews_data = [review.to_dict() for review in reviews]
+            return jsonify({'reviews': reviews_data})
+        else:
+            return make_response({"message": "No reviews found"}, 404)
    
 class GetReviewById(Resource):
     def get(self, review_id):

@@ -41,6 +41,7 @@ function NavBar() {
                 <NavDropdown title={`Hi, ${user.first_name.toUpperCase()}`} id="user-nav-dropdown">
                   <NavDropdown.Item as={Link} to="/myaccount">My Account</NavDropdown.Item>
                   <NavDropdown.Item as={Link} to="/wishlist">Wishlist</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/myreviews">My Reviews</NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
                 </NavDropdown>
