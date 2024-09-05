@@ -4,20 +4,25 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../AppContext';
-import logoImage from '/home/emilychew/Development/code/phase-4/gaming-community-hub/client/images/quest-logo.png'
 
 function NavBar() {
   const { user, handleLogout } = useContext(AppContext)
+  const navigate = useNavigate();
+  
+  const onLogout = () => {
+    handleLogout(navigate); // pass navigate to the logout function
+  };
 
   return (
-    <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary" fixed="top" >
+    <Navbar bg="dark" data-bs-theme="dark" collapseOnSelect expand="lg"fixed="top" >
       <Container>
         <Navbar.Brand href="/">
            <img
-            src={logoImage}
-            width="100" 
-            height="100" 
+            src={'/images/quest-logo.png'}
+            width="80" 
+            height="auto" 
             className="d-inline-block align-top"
             alt="Gaming Hub Logo" />
         </Navbar.Brand>
@@ -43,7 +48,7 @@ function NavBar() {
                   <NavDropdown.Item as={Link} to="/wishlist">Wishlist</NavDropdown.Item>
                   <NavDropdown.Item as={Link} to="/myreviews">My Reviews</NavDropdown.Item>
                   <NavDropdown.Divider />
-                  <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
+                  <NavDropdown.Item onClick={onLogout}>Logout</NavDropdown.Item>
                 </NavDropdown>
               </>
             ) : (
