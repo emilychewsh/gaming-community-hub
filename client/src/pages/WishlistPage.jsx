@@ -53,7 +53,7 @@ export default function WishlistPage() {
                     {wishlist.map(game => (
                         <Col key={game.id} sm={12} md={6} lg={4} xl={3}>
                             <Card className="mb-4" style={{ width: '18rem' }}>
-                            <Card.Img variant="top" src={game.game.image_url} alt={game.title} />
+                            <Card.Img variant="top" src={'images/' + game.game.image_url} alt={game.title} />
                                 <Card.Body>
                                     <Card.Title>{game.game.title}</Card.Title>
                                     <Button variant="danger" onClick={() => handleRemoveFromWishlist(game.game.id)}>

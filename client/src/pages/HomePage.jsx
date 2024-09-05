@@ -26,7 +26,7 @@ function HomePage() {
             <Carousel.Item key={index}>
                 <img
                     className="d-block w-100"
-                    src={game.image_url}
+                    src={'images/' + game.image_url}
                     alt={game.title}
                 />
                 <Carousel.Caption>

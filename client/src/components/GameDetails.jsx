@@ -72,7 +72,7 @@ export default function GameDetailsPage() {
                         <Tab eventKey="details" title="Game Details">
                             <Row className="game-box">
                                 <Col md={5}>
-                                    <img src={`/${game.image_url}`} alt={game.title} className="game-image" />
+                                    <img src={'/images/'+ game.image_url} alt={game.title} className="game-image" />
                                     <Button variant={isInWishlist ? 'danger' : 'primary'} onClick={handleWishlistToggle}>
                                         {isInWishlist ? 'Remove From Wishlist' : 'Add to Wishlist'}
                                     </Button>

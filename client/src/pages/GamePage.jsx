@@ -137,7 +137,7 @@ export default function GamePage() {
                                 style={{ width: '18rem'}}
                                 onClick={() => handleGameClick(game.id)}
                             >
-                                <Card.Img variant="top" src={game.image_url} alt={game.title}/>
+                                <Card.Img variant="top" src={'images/'+ game.image_url} alt={game.title}/>
                                 <Card.Body>
                                     <Card.Title>{game.title}</Card.Title>
                                     <Button 
