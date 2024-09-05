@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Container, Card, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { AppContext } from '../AppContext';
 
 
@@ -26,6 +27,9 @@ export default function MyReviewsPage () {
             })
         }
     }, [user])
+
+    if (!user) return <p>Please log in to view your reviews.<br />
+    Click <Link to="/login">here</Link> to login!</p>;
 
     return (
         <Container>

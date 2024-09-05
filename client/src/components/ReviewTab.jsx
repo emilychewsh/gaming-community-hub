@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link} from "react-router-dom";
 import { Button, Form, Card, Row, Col, Modal } from 'react-bootstrap';
 import { FaThumbsUp, FaThumbsDown } from 'react-icons/fa'
 import { AppContext } from '../AppContext';
@@ -68,6 +68,18 @@ export default function ReviewTab() {
     }
 
     const handleLikeDislike = (reviewId, isLike, authorId) => {
+
+        // check if the user is logged in - if visitor tries to like/dislike
+        if (!user) {
+            showModalWithMessage(
+                <span>
+                    You need to be logged in to react to reviews. Please{" "}
+                    <Link to="/login">log in</Link> or{" "}
+                    <Link to="/signup">sign up</Link>.
+                </span>
+            );
+            return;
+        }
 
         // check if the user is trying to like/dislike their own review
         if (authorId === user.id) {
@@ -139,7 +151,7 @@ export default function ReviewTab() {
                     </Form>
                 )}
                 {!user && <p>Please log in to write a review. <br />
-                No account yet? Register a user account here</p>}
+                No account yet? Register a user account <Link to="/signup">here</Link></p>}
             </Row>
 
             <Row className="review-list-row">
@@ -156,10 +168,10 @@ export default function ReviewTab() {
                                     <Card.Footer className="text-muted">
                                         <p>{review.likes_count > 0 ? `${review.likes_count} people liked this review!` : "Was this review helpful?"}</p>
                                         <div className="like-dislike-buttons">
-                                            <Button variant="primary" onClick={() => handleLikeDislike(review.id, true, review.author.id)}>
+                                            <Button variant="primary" onClick={() => handleLikeDislike(review.id, true, review.author.id)} style={{margin: "10px"}}>
                                                 <FaThumbsUp />
                                             </Button>
-                                            <Button variant="danger" onClick={() => handleLikeDislike(review.id, false, review.author.id)}>
+                                            <Button variant="danger" onClick={() => handleLikeDislike(review.id, false, review.author.id)} style={{margin: "10px"}}>
                                                 <FaThumbsDown />
                                             </Button>
                                         </div>

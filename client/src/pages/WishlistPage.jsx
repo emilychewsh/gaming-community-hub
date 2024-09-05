@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { AppContext } from '../AppContext';
 import Card from 'react-bootstrap/Card'
 import Col from 'react-bootstrap/Col';
@@ -40,7 +41,7 @@ export default function WishlistPage() {
     }
 
     if (!user) return <p>Please log in to view your wishlist.<br />
-    Click here to login!</p>;
+    Click <Link to="/login">here</Link> to login!</p>;
 
     return (
         <div className='row'>
