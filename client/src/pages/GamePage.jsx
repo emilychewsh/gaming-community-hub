@@ -94,6 +94,7 @@ export default function GamePage() {
         })
         .then((resp) => resp.json())
         .then((data) => {
+            console.log(data)
             setGameData([...gameData, data]);
             setShowModal(false);
             setNewGame({

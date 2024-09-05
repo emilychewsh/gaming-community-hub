@@ -12,6 +12,7 @@ import IndexPage from './pages/IndexPage'
 import WishlistPage from './pages/WishlistPage'
 import MyAccountPage from './pages/MyAccountPage'
 import MyReviewsPage from './pages/MyReviewsPage'
+import AboutPage from './pages/AboutPage'
 import { AppProvider } from './AppContext'
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
         <Routes>
           <Route path='/' element={<IndexPage/>} >
             <Route index element={<HomePage />} />
-            <Route path='about' />
+            <Route path='about' element={<AboutPage />} />
             <Route path='signup' element={<SignUpPage />} />
             <Route path='login' element={<LoginPage />} />
             <Route path='games' element={<GamePage />} />
