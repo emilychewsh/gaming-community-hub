@@ -1,15 +1,21 @@
-# Gaming Community Hub
+# Quest Games Hub
 
-Welcome to my Flask Project for phase 4 with Academy Xi! <br>
+![homepage](assets/images/home-page.JPG)
+
+Welcome to Quest Games Hub, a full-stack web application built using Flask and React for managing gaming communities. This project was developed as part of my final project for phase 4 and 5 with Academy Xi. <br>
+
+## Introduction
+
+As a lover of games, I wanted to build something that reflected one of my biggest passions. Creating Quest Games Hub was an easy choice for me because it allowed me to merge my love for gaming with the skills I've learned throughout my journey as a software engineer. I enjoyed every step of the process, this project is a representation of everything I've learned and experienced, and I'm excited to share it with you.
 
 ## What's it About?
 
-A full-stack application that serves as a hub for gamers. Users can create accounts, stay logged in, look up favourite games, write reviews, view other reviews, manage favourites, and more. The admin side allows creating, deleting, and updating games.
+Quest Games Hub is a platform for gamers where users can create accounts, log in, explore and manage their favourite games, write reviews, and interact with other gamers. Admin users have additional privileges to add game listings, ensuring the platform stays up to date with the latest games.
 
 ## Features
 
 - User authentication (sign up, log in, log out)
-- Game management (add, update, delete) for admins
+- Game page and further details
 - Favourite games management
 - Write, view, and delete reviews
 - Like or dislike reviews
@@ -17,13 +23,11 @@ A full-stack application that serves as a hub for gamers. Users can create accou
 
 ## Technologies Used
 
-- Flask
-- Flask-SQLAlchemy
-- Flask-RESTful
-- Flask-migrate
-- Flask-Bcrypt
-- Flask-CORS
-- SQLAlchemy-Serializer
+- Frontend: React (Vite), Bootstrap, React-Bootstrap
+- Backend: Flask, Flask-SQLAlchemy, Flask-RESTful
+- Database: SQLite (with Flask-SQLAlchemy ORM)
+- Other Libraries: Flask-Migrate, Flask-Bcrypt, Flask-CORS, SQLAlchemy-Serializer
+- Tools: Postman (for API testing)
 
 ## Getting Started
 
@@ -34,32 +38,42 @@ git clone https://github.com/emilychewsh/gaming-community-hub.git
 cd gaming-community-hub
 ```
 
-2. Install the dependencies:
+2. In a terminal (for server side), install dependencies and Set up the virtual environment using Pipenv:
 
 ```bash
+cd server
 pipenv install
-```
-
-3. Set up the virtual environment using Pipenv.
-
-```bash
 pipenv shell
 ```
 
-4. Set up the database:
+Set up the database:
 
 ```bash
 flask db upgrade
 ```
 
-5. Start the app:
+Set up seeded data:
 
 ```bash
-cd server
+python game-seed.py
+python user-seed.py
+python review-seed.py
+python review-likes-seed.py
+```
+
+Start the app:
+
+```bash
 python app.py
 ```
 
-6. Postman or other agents will be needed to test the API.
+3. In a separate terminal (client side), install dependencies and start development:
+
+```bash
+cd client
+npm install
+npm run dev
+```
 
 ## Entity Relationship
 
@@ -110,6 +124,7 @@ These are the 5 tables:
 | Column     | Type    | Description             |
 | ---------- | ------- | ----------------------- |
 | id         | Integer | Primary key             |
+| title      | String  | Review title            |
 | content    | String  | Review content          |
 | rating     | Integer | Game rating out of 5    |
 | created_at | Date    | Date review was created |
@@ -124,6 +139,13 @@ These are the 5 tables:
 | is_like   | Boolean | like/dislike other reviews |
 | user_id   | Integer | Foreign Key for `users`    |
 | review_id | Integer | Foreign Key for `reviews`  |
+
+## Future Implementations
+
+Admin Enhancements: Expand the admin features to allow more seamless game modifications and deletions, including better image management for game covers.
+User Interaction: Add the ability for users to comment on each other's reviews, fostering a more interactive community.
+Direct Messaging: Enable users to add each other as friends and send direct messages within the platform.
+Profile Pages: Allow users to create detailed profiles where they can showcase their favourite games, recent reviews, and other relevant information.
 
 ## License
 
