@@ -142,10 +142,10 @@ These are the 5 tables:
 
 ## Future Implementations
 
-Admin Enhancements: Expand the admin features to allow more seamless game modifications and deletions, including better image management for game covers. <br />
-User Interaction: Add the ability for users to comment on each other's reviews, fostering a more interactive community. <br />
-Direct Messaging: Enable users to add each other as friends and send direct messages within the platform. <br />
-Profile Pages: Allow users to create detailed profiles where they can showcase their favourite games, recent reviews, and other relevant information. <br />
+- Admin Enhancements: Expand the admin features to allow more seamless game modifications and deletions, including better image management for game covers. <br />
+- User Interaction: Add the ability for users to comment on each other's reviews, fostering a more interactive community. <br />
+- Direct Messaging: Enable users to add each other as friends and send direct messages within the platform. <br />
+- Profile Pages: Allow users to create detailed profiles where they can showcase their favourite games, recent reviews, and other relevant information. <br />
 
 ## License
 
