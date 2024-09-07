@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Container, Card, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AppContext } from '../AppContext';
 
 
 export default function MyReviewsPage () {
     const { user } = useContext(AppContext);
     const [reviews, setReviews] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (user) {
@@ -20,13 +21,16 @@ export default function MyReviewsPage () {
             .then(data => {
                 if (data.reviews) {
                     setReviews(data.reviews)
-                    console.log(data.reviews)
                 } else {
                     console.log(data.message)
                 }
             })
         }
     }, [user])
+
+    const handleViewDetails = (gameId) => {
+        navigate(`/games/${gameId}`);
+    };
 
     if (!user) return <p>Please log in to view your reviews.<br />
     Click <Link to="/login">here</Link> to login!</p>;
@@ -44,11 +48,18 @@ export default function MyReviewsPage () {
                             <Card.Footer className="text-muted">
                                 Written on {new Date(review.created_at).toLocaleDateString()}
                             </Card.Footer>
+                            <Button 
+                                variant="primary" 
+                                onClick={() => handleViewDetails(review.game.id)}
+                                style={{margin: "10px"}}
+                            >
+                                View Game details
+                            </Button>
                         </Card.Body>
                     </Card>
                 ))
             ) : (
-                <p>No reviews yet. Start reviewing your favorite games!</p>
+                <p>No reviews yet. Start reviewing your favourite games!</p>
             )}
         </Container>
     )
