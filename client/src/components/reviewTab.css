@@ -11,6 +11,12 @@
     width: 100%;
     margin-top: 10px;
     padding: 20px; 
+    margin-bottom: 50px;
+}
+
+.average-rating-row {
+    margin-top: 50px; 
+    margin-bottom: 30px; 
 }
 
 .star {
@@ -29,6 +35,16 @@
     color: orange;
 }
 
+.review-card {
+    height: 100%; 
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column; 
+    justify-content: space-between; 
+}
 
 .review-card .text-muted {
     font-size: 0.9rem;
@@ -39,15 +55,23 @@
     margin-bottom: 20px;
 }
 
+
 .review-list-row {
     margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
 }
 
-.review-card {
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
+.review-list-row .col-md-6 {
+    display: flex;
+    justify-content: center;
+    align-items: stretch; 
+}
+
+.card-body {
+    flex-grow: 1;
+}
+
+.card-footer {
+    text-align: center;
 }

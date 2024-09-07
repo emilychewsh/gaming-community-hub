@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Container, Card, Button } from 'react-bootstrap';
+import { Container, Card, Button, Row, Col } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppContext } from '../AppContext';
+import './myReviewsPage.css'
 
 
 export default function MyReviewsPage () {
@@ -37,32 +38,36 @@ export default function MyReviewsPage () {
 
     return (
         <Container>
-            <h1>My Reviews</h1>
-            {reviews.length > 0 ? (
-                reviews.map(review => (
-                    <Card key={review.id} className="mb-3">
-                        <Card.Body>
-                            <Card.Title>{review.game.title}</Card.Title>
-                            <Card.Subtitle className="mb-2 text-muted">{review.title}</Card.Subtitle>
-                            <Card.Text>{review.content}</Card.Text>
-                            <Card.Footer className="text-muted">
-                                Written on {new Date(review.created_at).toLocaleDateString()}
-                            </Card.Footer>
-                            <div className='button'>
-                                <Button 
-                                    variant="primary" 
-                                    onClick={() => handleViewDetails(review.game.id)}
-                                    style={{margin: "10px"}}
-                                >
-                                    View Game details
-                                </Button>
-                            </div>
-                        </Card.Body>
-                    </Card>
+            <h1 className="text-center">My Reviews</h1>
+            <div className="review-row">
+                {reviews.length > 0 ? (
+                    reviews.map(review => (
+                        <div key={review.id} className="review-col">
+                            <Card key={review.id} className="review-card">
+                                <Card.Body className="d-flex flex-column">
+                                    <Card.Title>{review.game.title}</Card.Title>
+                                    <Card.Text style={{marginBottom: "10px"}}>{review.title}</Card.Text>
+                                    <Card.Subtitle className="mb-2 text-muted">{review.content}</Card.Subtitle>
+                                    <Card.Footer className="text-muted mt-auto">
+                                        Written on {new Date(review.created_at).toLocaleDateString()}
+                                        <div className='button'>
+                                        <Button 
+                                            variant="primary" 
+                                            onClick={() => handleViewDetails(review.game.id)}
+                                            style={{margin: "10px"}}
+                                        >
+                                            View Game details
+                                        </Button>
+                                    </div>
+                                    </Card.Footer>
+                                </Card.Body>
+                            </Card>
+                        </div>
                 ))
             ) : (
                 <p>No reviews yet. Start reviewing your favourite games!</p>
             )}
+            </div>
         </Container>
     )
 }

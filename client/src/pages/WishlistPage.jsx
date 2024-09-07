@@ -6,7 +6,6 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
-import './wishlistPage.css';
 
 export default function WishlistPage() {
     const { user } = useContext(AppContext)
@@ -46,7 +45,7 @@ export default function WishlistPage() {
 
     return (
         <div className='wishlist-container'>
-            <h2>Your Wishlist</h2>
+            <h1 className="text-center">Your Wishlist</h1>
             {wishlist.length === 0 ? (
                 <p>Your wishlist is empty.</p>
             ) : (

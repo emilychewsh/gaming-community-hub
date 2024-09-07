@@ -5,17 +5,43 @@ from datetime import datetime
 def seed_games():
     games = [
         Game(
-            title="The Witcher 3: Wild Hunt",
+            title="Black Myth: Wukong",
             genre="RPG",
-            price=60,
-            description="You are Geralt of Rivia, mercenary monster slayer. Before you stands a war-torn, monster-infested continent you can explore at will. Your current contract? Tracking down Ciri — the Child of Prophecy, a living weapon that can alter the shape of the world.",
+            price=89,
+            description="Black Myth: Wukong is an action RPG rooted in Chinese mythology. You shall set out as the Destined One to venture into the challenges and marvels ahead, to uncover the obscured truth beneath the veil of a glorious legend from the past.",
             rating=92,
-            platform="Available on PS4, Windows, Xbox One, Nintendo Switch, PS5 and Xbox Series X/S",
-            trailer_url="https://www.youtube.com/embed/c0i88t0Kacs?si=nzEtpLMC00swjNFT",
-            release_date=datetime.strptime("2015-05-19", "%Y-%m-%d").date(),
-            publisher="CD Projekt",
-            developer="CD Projekt Red",
-            image_url = "witcher3-bg.jpeg"
+            platform="Available on PlayStation 5, Xbox Series X and Series S, GeForce Now, Microsoft Windows",
+            trailer_url="https://www.youtube.com/embed/pnSsgRJmsCc?si=Nv0bKAZxhmgLvOuB",
+            release_date=datetime.strptime("2024-08-20", "%Y-%m-%d").date(),
+            publisher="Game Science",
+            developer="Game Science",
+            image_url = "black-myth-wukong-bg.jpg"
+        ),
+        Game(
+            title="Warhammer 40,000: Space Marine 2",
+            genre="Action",
+            price=90,
+            description="Embody the superhuman skill and brutality of a Space Marine. Unleash deadly abilities and devastating weaponry to obliterate the relentless Tyranid swarms. Defend the Imperium in spectacular third-person action in solo or multiplayer modes.",
+            rating=83,
+            platform="Available on PlayStation 5, Xbox Series X and Series S, GeForce Now, Microsoft Windows",
+            trailer_url="https://www.youtube.com/embed/mJntSVa4OBE?si=ipMP5RnqzZcXH0pT",
+            release_date=datetime.strptime("2024-09-10", "%Y-%m-%d").date(),
+            publisher="Focus Entertainment",
+            developer="Saber Interactive",
+            image_url = "warhammer-bg.jpeg"
+        ),
+        Game(
+            title="Baldur's Gate 3",
+            genre="RPG",
+            price=89,
+            description="Baldur’s Gate 3 is a story-rich, party-based RPG set in the universe of Dungeons & Dragons, where your choices shape a tale of fellowship and betrayal, survival and sacrifice, and the lure of absolute power.",
+            rating=96,
+            platform="Available on Windows, Xbox One, PS5 and Xbox Series X/S",
+            trailer_url="https://www.youtube.com/embed/1T22wNvoNiU?si=tx-aPnld8cqG4GUn",
+            release_date=datetime.strptime("2024-08-04", "%Y-%m-%d").date(),
+            publisher="Larian Studios",
+            developer="Larian Studios",
+            image_url = "baldurs-gate-3.jpeg"
         ),
         Game(
             title="Elden Ring",
@@ -198,6 +224,19 @@ def seed_games():
             publisher="Team Cherry",
             developer="Team Cherry",
             image_url = "hollowknight-bg.jpeg"
+        ),
+        Game(
+            title="The Witcher 3: Wild Hunt",
+            genre="RPG",
+            price=60,
+            description="You are Geralt of Rivia, mercenary monster slayer. Before you stands a war-torn, monster-infested continent you can explore at will. Your current contract? Tracking down Ciri — the Child of Prophecy, a living weapon that can alter the shape of the world.",
+            rating=92,
+            platform="Available on PS4, Windows, Xbox One, Nintendo Switch, PS5 and Xbox Series X/S",
+            trailer_url="https://www.youtube.com/embed/c0i88t0Kacs?si=nzEtpLMC00swjNFT",
+            release_date=datetime.strptime("2015-05-19", "%Y-%m-%d").date(),
+            publisher="CD Projekt",
+            developer="CD Projekt Red",
+            image_url = "witcher3-bg.jpeg"
         )
     ]
 

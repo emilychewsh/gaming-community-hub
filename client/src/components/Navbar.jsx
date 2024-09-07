@@ -6,6 +6,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../AppContext';
+import './navbar.css'
 
 function NavBar() {
   const { user, handleLogout } = useContext(AppContext)
@@ -16,7 +17,7 @@ function NavBar() {
   };
 
   return (
-    <Navbar bg="dark" data-bs-theme="dark" collapseOnSelect expand="lg"fixed="top" >
+    <Navbar bg="dark" data-bs-theme="dark" collapseOnSelect expand="lg" fixed="top" >
       <Container>
         <Navbar.Brand href="/">
            <img
@@ -43,7 +44,7 @@ function NavBar() {
           <Nav>
             {user ? (
               <>
-                <NavDropdown title={`Hi, ${user.first_name.toUpperCase()}`} id="user-nav-dropdown">
+                <NavDropdown title={`Hi, ${user.first_name.toUpperCase()}!`} id="user-nav-dropdown">
                   <NavDropdown.Item as={Link} to="/myaccount">My Account</NavDropdown.Item>
                   <NavDropdown.Item as={Link} to="/wishlist">Wishlist</NavDropdown.Item>
                   <NavDropdown.Item as={Link} to="/myreviews">My Reviews</NavDropdown.Item>

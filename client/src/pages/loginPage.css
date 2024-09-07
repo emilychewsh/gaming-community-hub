@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
 .login-container {
     max-width: 600px; 
     margin: 2rem auto; 
@@ -5,6 +7,7 @@
     background: #f8f9fa; 
     border-radius: 8px; 
     box-shadow: 0 0 10px rgba(0,0,0,0.2); 
+    font-family: 'Space Mono', sans-serif;
 }
 
 .login-title {

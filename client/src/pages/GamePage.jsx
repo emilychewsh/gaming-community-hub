@@ -26,6 +26,8 @@ export default function GamePage() {
         publisher: "",
         image_url: "",
     })
+    const genreOptions = ["RPG", "Action", "Racing", "Battle", "Anime"];
+
 
     // function to parse query parameters from URL
     const getQueryParams = (search) => {
@@ -58,10 +60,9 @@ export default function GamePage() {
 
         if (genre) {
             setSelectedGenre(genre)
-            filtered = filtered.filter(game => game.genre === genre);
+            filtered = filtered.filter(game => game.genre.toLowerCase() === genre.toLowerCase());
         } else {
-            setSelectedGenre("")
-            setSearchGame("") 
+            setSelectedGenre(""); 
         }
         if (searchGame) {
             filtered = filtered.filter(game => game.title.toLowerCase().includes(searchGame.toLowerCase()));
@@ -183,12 +184,18 @@ export default function GamePage() {
 
                         <Form.Group controlId="formGenre">
                             <Form.Label>Genre</Form.Label>
-                            <Form.Control
-                                type="text"
-                                name="genre"
-                                value={newGame.genre}
-                                onChange={handleChange}
-                            />
+                                <Form.Select
+                                    name="genre"
+                                    value={newGame.genre}
+                                    onChange={handleChange}
+                                >
+                                    <option value="">Select a genre</option>
+                                    {genreOptions.map(genre => (
+                                        <option key={genre} value={genre}>
+                                            {genre}
+                                        </option>
+                                    ))}
+                                </Form.Select>
                         </Form.Group>
 
                         <Form.Group controlId="formPrice">

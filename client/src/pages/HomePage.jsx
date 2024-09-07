@@ -12,7 +12,7 @@ function HomePage() {
   useEffect(() => {
       fetch('/games')  //fetch games
       .then(response => response.json())
-      .then(allGames => setGames(allGames.slice(2, 5)))
+      .then(allGames => setGames(allGames.slice(0, 3)))
   }, [])
 
   const handleNavigate = () => {
