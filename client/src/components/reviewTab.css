@@ -13,12 +13,6 @@
     padding: 20px; 
 }
 
-.review-card {
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-}
 
 .review-card .text-muted {
     font-size: 0.9rem;
@@ -33,5 +27,11 @@
     margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+}
+
+.review-card {
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
 }

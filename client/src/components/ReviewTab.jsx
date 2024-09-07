@@ -11,14 +11,25 @@ export default function ReviewTab() {
     const [newReview, setNewReview] = useState({ title: '', content: '', rating: 0});
     const [showModal, setShowModal] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
+    const [userReview, setUserReview] = useState(null);
     const { user } = useContext(AppContext);
 
     useEffect(() => {
         fetch(`/games/${gameId}/reviews`)
         .then((resp) => resp.json())
-        .then((data) => setReviews(data.reviews))
+        .then((data) => {
+            setReviews(data.reviews)
+            if (user) {
+                const existingReview = data.reviews.find(review => review.author.id ===user.id)
+                if(existingReview) {
+                    setUserReview(existingReview)
+                } else {
+                    setUserReview(null)
+                }
+            }
+        })
         .catch((error) => console.error("Error with fetching game reviews:", error))
-    }, [gameId])
+    }, [gameId, user])
 
     // show modal with a message
     const showModalWithMessage = (message) => {
@@ -35,13 +46,6 @@ export default function ReviewTab() {
     //Handle posting a review
     const handleSubmit = (e) => {
         e.preventDefault()
-
-        // check if the user has already reviewed the game
-        const hasReviewed = reviews.some(review => review.author.id === user.id);
-        if (hasReviewed) {
-            showModalWithMessage('You have already reviewed this game!');
-            return;
-        }
 
         fetch('/reviews/add', {
             method: 'POST',
@@ -63,7 +67,8 @@ export default function ReviewTab() {
         })
         .then((data) => {
             setReviews([...reviews, data.review]);
-            setNewReview({ title: '', content: '', rating: 0 })
+            setNewReview({ title: '', content: '', rating: 0 });
+            setUserReview(data.review);
         })
     }
 
@@ -109,49 +114,62 @@ export default function ReviewTab() {
             <Row>
                 <h2>Write a Review</h2>
                 {user && (
-                    <Form className="review-form" onSubmit={handleSubmit}>
-                        <Form.Group className="review-form-group" controlId="Title">
-                        <Form.Label>Review Title:</Form.Label>
-                        <Form.Control 
-                            type="text"
-                            placeholder="Enter a title for your review" 
-                            value={newReview.title}
-                            onChange={(e) => setNewReview({ ...newReview, title: e.target.value })}
-                            required
-                        />
-                        </Form.Group>
+                    <>
+                        {userReview ? (
+                            <p>
+                                You have already reviewed this game! Check out your review{' '}
+                                <Link to={'/myreviews'}>here</Link>.
+                            </p>
+                        ) : (
+                            <Form className="review-form" onSubmit={handleSubmit}>
+                                <Form.Group className="review-form-group" controlId="Title">
+                                <Form.Label>Review Title:</Form.Label>
+                                <Form.Control 
+                                    type="text"
+                                    placeholder="Enter a title for your review" 
+                                    value={newReview.title}
+                                    onChange={(e) => setNewReview({ ...newReview, title: e.target.value })}
+                                    required
+                                />
+                                </Form.Group>
 
-                        <Form.Group className="review-form-group" controlId="Content">
-                        <Form.Label>Write your review:</Form.Label>
-                        <Form.Control 
-                            as="textarea"
-                            rows={3}
-                            placeholder="Type..." 
-                            value={newReview.content}
-                            onChange={(e) => setNewReview({ ...newReview, content: e.target.value })}
-                            required
-                            />
-                        </Form.Group>
+                                <Form.Group className="review-form-group" controlId="Content">
+                                <Form.Label>Write your review:</Form.Label>
+                                <Form.Control 
+                                    as="textarea"
+                                    rows={3}
+                                    placeholder="Type..." 
+                                    value={newReview.content}
+                                    onChange={(e) => setNewReview({ ...newReview, content: e.target.value })}
+                                    required
+                                    />
+                                </Form.Group>
 
-                        <Form.Group className="review-form-group" controlId="rating">
-                        <Form.Label>Rating:</Form.Label>
-                        <Form.Control 
-                            type="number"
-                            value={newReview.rating}
-                            onChange={(e) => setNewReview({ ...newReview, rating: e.target.value })}
-                            min="1"
-                            max="5"
-                            required 
-                            />
-                        </Form.Group>
+                                <Form.Group className="review-form-group" controlId="rating">
+                                <Form.Label>Rating:</Form.Label>
+                                <Form.Control 
+                                    type="number"
+                                    value={newReview.rating}
+                                    onChange={(e) => setNewReview({ ...newReview, rating: e.target.value })}
+                                    min="1"
+                                    max="5"
+                                    required 
+                                    />
+                                </Form.Group>
 
-                        <Button variant="primary" type="submit">
-                        Submit Review
-                        </Button>
-                    </Form>
+                                <Button variant="primary" type="submit">
+                                Submit Review
+                                </Button>
+                            </Form>
+                        )}
+                    </>
                 )}
-                {!user && <p>Please log in to write a review. <br />
-                No account yet? Register a user account <Link to="/signup">here</Link></p>}
+                {!user && (
+                    <p>
+                        Please log in to write a review. <br />
+                        No account yet? Register a user account <Link to="/signup">here</Link>
+                    </p>
+                )}
             </Row>
 
             <Row className="review-list-row">
@@ -167,14 +185,17 @@ export default function ReviewTab() {
                         
                                     <Card.Footer className="text-muted">
                                         <p>{review.likes_count > 0 ? `${review.likes_count} people liked this review!` : "Was this review helpful?"}</p>
-                                        <div className="like-dislike-buttons">
-                                            <Button variant="primary" onClick={() => handleLikeDislike(review.id, true, review.author.id)} style={{margin: "10px"}}>
-                                                <FaThumbsUp />
-                                            </Button>
-                                            <Button variant="danger" onClick={() => handleLikeDislike(review.id, false, review.author.id)} style={{margin: "10px"}}>
-                                                <FaThumbsDown />
-                                            </Button>
-                                        </div>
+                                        
+                                        {user && review.author.id !== user.id && (
+                                            <div className="like-dislike-buttons">
+                                                <Button variant="primary" onClick={() => handleLikeDislike(review.id, true, review.author.id)} style={{margin: "10px"}}>
+                                                    <FaThumbsUp />
+                                                </Button>
+                                                <Button variant="danger" onClick={() => handleLikeDislike(review.id, false, review.author.id)} style={{margin: "10px"}}>
+                                                    <FaThumbsDown />
+                                                </Button>
+                                            </div>
+                                        )}
                                     </Card.Footer>
                                 </Card.Body>
                             </Card>
