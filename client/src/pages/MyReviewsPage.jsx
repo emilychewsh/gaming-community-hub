@@ -48,13 +48,15 @@ export default function MyReviewsPage () {
                             <Card.Footer className="text-muted">
                                 Written on {new Date(review.created_at).toLocaleDateString()}
                             </Card.Footer>
-                            <Button 
-                                variant="primary" 
-                                onClick={() => handleViewDetails(review.game.id)}
-                                style={{margin: "10px"}}
-                            >
-                                View Game details
-                            </Button>
+                            <div className='button'>
+                                <Button 
+                                    variant="primary" 
+                                    onClick={() => handleViewDetails(review.game.id)}
+                                    style={{margin: "10px"}}
+                                >
+                                    View Game details
+                                </Button>
+                            </div>
                         </Card.Body>
                     </Card>
                 ))

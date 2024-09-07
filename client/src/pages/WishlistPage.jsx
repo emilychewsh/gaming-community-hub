@@ -6,6 +6,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
+import './wishlistPage.css';
 
 export default function WishlistPage() {
     const { user } = useContext(AppContext)
@@ -44,7 +45,7 @@ export default function WishlistPage() {
     Click <Link to="/login">here</Link> to login!</p>;
 
     return (
-        <div className='row'>
+        <div className='wishlist-container'>
             <h2>Your Wishlist</h2>
             {wishlist.length === 0 ? (
                 <p>Your wishlist is empty.</p>
@@ -52,16 +53,18 @@ export default function WishlistPage() {
                 <Row className="g-4">
                     {wishlist.map(game => (
                         <Col key={game.id} sm={12} md={6} lg={4} xl={3}>
-                            <Card className="mb-4" style={{ width: '18rem' }}>
+                            <Card className="wishlist-card mb-4" style={{ width: '18rem' }}>
                             <Card.Img variant="top" src={'images/' + game.game.image_url} alt={game.title} />
                                 <Card.Body>
                                     <Card.Title>{game.game.title}</Card.Title>
-                                    <Button variant="danger" onClick={() => handleRemoveFromWishlist(game.game.id)}>
-                                        Remove from Wishlist
-                                    </Button>
-                                    <Button variant="primary" onClick={()=> handleNavigate(game.game.id)} style={{ marginTop: '10px' }} >
-                                        View Details
-                                    </Button>
+                                    <div className="button-group">
+                                        <Button variant="danger" onClick={() => handleRemoveFromWishlist(game.game.id)}>
+                                            Remove from Wishlist
+                                        </Button>
+                                        <Button variant="primary" onClick={()=> handleNavigate(game.game.id)} style={{ marginTop: '10px' }} >
+                                            View Details
+                                        </Button>
+                                    </div>
                                 </Card.Body>
                             </Card>
                         </Col>

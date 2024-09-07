@@ -140,7 +140,7 @@ export default function GamePage() {
                     filteredGames.map(game => (
                         <div key={game.id} className="col-xl-3 col-lg-4 col-md-6 mb-5">
                             <Card 
-                                className="game-card"
+                                className="game-card d-flex flex-column justify-content-between"
                                 style={{ width: '18rem'}}
                                 onClick={() => handleGameClick(game.id)}
                             >
@@ -150,7 +150,6 @@ export default function GamePage() {
                                     <Button 
                                         variant="primary" 
                                         onClick={() => handleGameClick(game.id)} 
-                                        style={{ marginTop: '1rem' }}
                                     >
                                         View Details
                                     </Button>
