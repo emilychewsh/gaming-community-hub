@@ -5,8 +5,8 @@ import { AppContext } from '../AppContext';
 import './gamePage.css'
 
 export default function GamePage() {
-    const [gameData, setGameData] = useState([]);
-    const [filteredGames, setFilteredGames] = useState([]);
+    const [gameData, setGameData] = useState([]); //list of games fetched from the server
+    const [filteredGames, setFilteredGames] = useState([]); //based on search or genre 
     const [searchGame, setSearchGame] = useState("")
     const navigate = useNavigate();
     const location = useLocation();
@@ -26,24 +26,25 @@ export default function GamePage() {
         image_url: "",
     })
 
-    // Function to parse query parameters from URL
+    // function to parse query parameters from URL
     const getQueryParams = (search) => {
         return new URLSearchParams(search);
     }
 
-    // Fetch game data from API
+    // fetch game data from API
     useEffect(() => {
         fetch('/games')
         .then((resp) => resp.json())
         .then((data) => {
             setGameData(data);
-            filterGames(data); // Set filteredGames based on initial fetch
+            filterGames(data); // set filteredGames based on initial fetch
             console.log(data)
         })
         .catch((error) => console.error("Error with fetching games:", error));
     }, []);
 
 
+    //reruns filterGames fx every time location.search, gameData, searchGame changes
     useEffect(() => {
         filterGames(gameData)
     }, [location.search, gameData, searchGame])
@@ -72,6 +73,7 @@ export default function GamePage() {
         navigate(`/games/${gameId}`);
     }
 
+    //handles img file upload
     const handleFileChange = (e) => {
         setNewGame({ ...newGame, image: e.target.files[0] });
     };
@@ -95,9 +97,9 @@ export default function GamePage() {
         .then((resp) => resp.json())
         .then((data) => {
             console.log(data)
-            setGameData([...gameData, data]);
+            setGameData([...gameData, data]); //adds to existing games
             setShowModal(false);
-            setNewGame({
+            setNewGame({ //resets newGame state after submission
                 title: "",
                 genre: "",
                 price: "",
@@ -110,7 +112,6 @@ export default function GamePage() {
                 publisher: "",
                 image_url: "",
             });
-            console.log(newGame)
         })
     };
 

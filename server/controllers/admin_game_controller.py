@@ -49,9 +49,9 @@ class AdminAddGame(AdminBaseResource):
         
         if image:
             filename = secure_filename(image.filename)
-            image_path = os.path.join('client', 'public', 'images', filename)
+            image_path = os.path.join('..', '..', 'client', 'public', 'images', filename)
             image.save(image_path)
-            image_url = '/image/' + filename  # storing just the file name in db
+            image_url = filename  # storing just the file name in db
         else:
             image_url = "default.jpg"
 

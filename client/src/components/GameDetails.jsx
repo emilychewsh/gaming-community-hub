@@ -21,7 +21,7 @@ export default function GameDetailsPage() {
         .catch((error) => console.error("Error fetching game details:", error))
 
         if (user) {
-            fetch(`/favourites/${gameId}`)
+            fetch(`/favourites/${gameId}`) //check if existing in wishlist
             .then(resp => resp.json())
             .then(data => {
                 if (!data.error) {
@@ -34,10 +34,6 @@ export default function GameDetailsPage() {
 
     //Handle wishlist toggle 
     const handleWishlistToggle = () => {
-        if (!user) {
-            alert("Please log in to add to your wishlist.");
-            return;
-        }
 
         const url = isInWishlist ? '/favourites/remove' : '/favourites/add'
         const method = isInWishlist ? 'DELETE' : 'POST'
@@ -73,9 +69,11 @@ export default function GameDetailsPage() {
                             <Row className="game-box">
                                 <Col md={5}>
                                     <img src={'/images/'+ game.image_url} alt={game.title} className="game-image" />
-                                    <Button variant={isInWishlist ? 'danger' : 'primary'} onClick={handleWishlistToggle}>
-                                        {isInWishlist ? 'Remove From Wishlist' : 'Add to Wishlist'}
-                                    </Button>
+                                    {user && (
+                                        <Button variant={isInWishlist ? 'danger' : 'primary'} onClick={handleWishlistToggle}>
+                                            {isInWishlist ? 'Remove From Wishlist' : 'Add to Wishlist'}
+                                        </Button>
+                                    )}
                                     {message && <div className="popup-message">{message}</div>}
                                 </Col>
                                 <Col md={7}>
@@ -84,9 +82,9 @@ export default function GameDetailsPage() {
                                     </div>
 
                                     <div className="game-info">
-                                        <strong>Price:</strong> {game.genre} <br />
+                                        <strong>Genre:</strong> {game.genre} <br />
                                         <strong>Price:</strong> ${game.price} <br />
-                                        <strong>Rating:</strong> ${game.rating} <br />
+                                        <strong>Metacritic Rating:</strong> {game.rating} <br />
                                         <strong>Released:</strong> {new Date(game.release_date).toLocaleDateString()} <br />
                                         <strong>Developer:</strong> {game.developer} <br />
                                         <strong>Publisher:</strong> {game.publisher} <br />
