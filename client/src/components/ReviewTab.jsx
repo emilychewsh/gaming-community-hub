@@ -184,7 +184,11 @@ export default function ReviewTab() {
                                     <p><em>Written by {review.author.username || review.author} on {new Date(review.created_at).toLocaleDateString()}</em></p>
                         
                                     <Card.Footer className="text-muted">
-                                        <p>{review.likes_count > 0 ? `${review.likes_count} people liked this review!` : "Was this review helpful?"}</p>
+                                        <p>
+                                            {review.likes_count > 0 ? 
+                                                `${review.likes_count} ${review.likes_count === 1 ? 'person has' : 'people have'} liked this review!`
+                                                : "Was this review helpful?"}
+                                        </p>
                                         
                                         {user && review.author.id !== user.id && (
                                             <div className="like-dislike-buttons">

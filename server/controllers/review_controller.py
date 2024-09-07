@@ -1,6 +1,6 @@
 from flask_restful import Resource
 from config import db 
-from models import User, Game, Review
+from models import User, Game, Review, ReviewLike
 from flask import make_response, session, request, jsonify
 
 
@@ -105,6 +105,11 @@ class GetReviewsByGame(Resource):
         
         reviews = Review.query.filter_by(game_id=game_id).all()
 
-        reviews_dict = [review.to_dict() for review in reviews]
+        reviews_dict = []
+        for review in reviews:
+            likes_count = ReviewLike.query.filter_by(review_id=review.id, is_like=True).count()
+            review_data = review.to_dict()
+            review_data['likes_count'] = likes_count  # Include the likes count
+            reviews_dict.append(review_data)
         
         return make_response({'reviews': reviews_dict}, 200)

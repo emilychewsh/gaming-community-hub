@@ -3,7 +3,6 @@ from config import db
 from models import User, Game, Review, ReviewLike
 from flask import make_response, session, request
 
-####Refactor these.
 class UpdateReviewStatus(Resource):
     def post(self):
         user_id = session.get('user_id')
