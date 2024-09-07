@@ -13,6 +13,22 @@
     padding: 20px; 
 }
 
+.star {
+    font-size: 1.5rem;
+    color: gray;
+    cursor: pointer;
+    transition: color 0.2s;
+    margin-right: 5px;
+}
+
+.star.filled {
+    color: gold;
+}
+
+.star:hover {
+    color: orange;
+}
+
 
 .review-card .text-muted {
     font-size: 0.9rem;

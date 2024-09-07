@@ -58,7 +58,7 @@ export default function SignUpPage() {
             {error && <Alert variant="danger">{error}</Alert>}
             <Form onSubmit={handleSubmit} className="signup-form">
                 <Form.Group controlId="username">
-                <Form.Label>Username</Form.Label>
+                <Form.Label>Username*</Form.Label>
                 <Form.Control
                     type="text"
                     name="username"
@@ -69,7 +69,7 @@ export default function SignUpPage() {
                 </Form.Group>
 
                 <Form.Group controlId="first_name">
-                <Form.Label>First Name</Form.Label>
+                <Form.Label>First Name*</Form.Label>
                 <Form.Control
                     type="text"
                     name="first_name"
@@ -80,7 +80,7 @@ export default function SignUpPage() {
                 </Form.Group>
 
                 <Form.Group controlId="last_name">
-                <Form.Label>Last Name</Form.Label>
+                <Form.Label>Last Name*</Form.Label>
                 <Form.Control
                     type="text"
                     name="last_name"
@@ -91,7 +91,7 @@ export default function SignUpPage() {
                 </Form.Group>
 
                 <Form.Group controlId="email">
-                <Form.Label>Email</Form.Label>
+                <Form.Label>Email*</Form.Label>
                 <Form.Control
                     type="email"
                     name="email"
@@ -105,7 +105,7 @@ export default function SignUpPage() {
                 </Form.Group>
 
                 <Form.Group controlId="password">
-                <Form.Label>Password</Form.Label>
+                <Form.Label>Password*</Form.Label>
                 <Form.Control
                     type="password"
                     name="password"

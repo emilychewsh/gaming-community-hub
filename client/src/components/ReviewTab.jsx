@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useParams, Link} from "react-router-dom";
 import { Button, Form, Card, Row, Col, Modal } from 'react-bootstrap';
-import { FaThumbsUp, FaThumbsDown } from 'react-icons/fa'
+import { FaStar, FaThumbsUp, FaThumbsDown } from 'react-icons/fa';
 import { AppContext } from '../AppContext';
 import './reviewTab.css';
 
@@ -9,9 +9,11 @@ export default function ReviewTab() {
     const {gameId} = useParams();
     const [reviews, setReviews] = useState([]);
     const [newReview, setNewReview] = useState({ title: '', content: '', rating: 0});
+    const [hoverRating, setHoverRating] = useState(0);
     const [showModal, setShowModal] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
     const [userReview, setUserReview] = useState(null);
+    const [averageRating, setAverageRating] = useState(0);
     const { user } = useContext(AppContext);
 
     useEffect(() => {
@@ -19,6 +21,8 @@ export default function ReviewTab() {
         .then((resp) => resp.json())
         .then((data) => {
             setReviews(data.reviews)
+            calculateAverageRating(data.reviews)
+
             if (user) {
                 const existingReview = data.reviews.find(review => review.author.id ===user.id)
                 if(existingReview) {
@@ -43,6 +47,17 @@ export default function ReviewTab() {
         setModalMessage('');
     };
 
+    const calculateAverageRating = (reviews) => {
+        if (reviews.length === 0) {
+            setAverageRating(0);
+            return;
+        }
+
+        const totalRating = reviews.reduce((acc, review) => acc + review.rating, 0);
+        const avgRating = totalRating / reviews.length;
+        setAverageRating(avgRating.toFixed(1)); // round to one decimal place
+    };
+
     //Handle posting a review
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -54,7 +69,8 @@ export default function ReviewTab() {
             },
             body: JSON.stringify({ 
                 ...newReview,
-                game_id: gameId
+                game_id: gameId,
+                rating: newReview.rating
             }),
         })
         .then((resp) => {
@@ -71,6 +87,10 @@ export default function ReviewTab() {
             setUserReview(data.review);
         })
     }
+
+    const handleRatingClick = (ratingValue) => {
+        setNewReview({ ...newReview, rating: ratingValue });
+    };
 
     const handleLikeDislike = (reviewId, isLike, authorId) => {
 
@@ -147,14 +167,17 @@ export default function ReviewTab() {
 
                                 <Form.Group className="review-form-group" controlId="rating">
                                 <Form.Label>Rating:</Form.Label>
-                                <Form.Control 
-                                    type="number"
-                                    value={newReview.rating}
-                                    onChange={(e) => setNewReview({ ...newReview, rating: e.target.value })}
-                                    min="1"
-                                    max="5"
-                                    required 
-                                    />
+                                <div className="star-rating">
+                                        {[1, 2, 3, 4, 5].map((star) => (
+                                            <FaStar
+                                                key={star}
+                                                className={`star ${newReview.rating >= star || hoverRating >= star ? 'filled' : ''}`}
+                                                onClick={() => handleRatingClick(star)}
+                                                onMouseEnter={() => setHoverRating(star)}
+                                                onMouseLeave={() => setHoverRating(0)}
+                                            />
+                                        ))}
+                                    </div>
                                 </Form.Group>
 
                                 <Button variant="primary" type="submit">
@@ -171,9 +194,28 @@ export default function ReviewTab() {
                     </p>
                 )}
             </Row>
-
-            <Row className="review-list-row">
+            
+            {/* Reviews Section */}
+            <Row className="average-rating-row">
                 <h2>User Reviews</h2>
+                {averageRating > 0 ? (
+                    <div className="average-rating">
+                        <div className="star-rating">
+                            {[1, 2, 3, 4, 5].map((star) => (
+                                <FaStar
+                                    key={star}
+                                    className={`star ${averageRating >= star ? 'filled' : ''}`}
+                                />
+                            ))}
+                        </div>
+                        <span>({averageRating}/5)</span>
+                    </div>
+                ) : (
+                    <p>No ratings yet</p>
+                )}
+            </Row>
+            
+            <Row className="review-list-row">
                 {reviews.length > 0 ? (
                     reviews.map((review) => (
                         <Col key={review.id} md={6} className="mb-4">
@@ -182,7 +224,16 @@ export default function ReviewTab() {
                                     <Card.Title>{review.title}</Card.Title>
                                     <Card.Text>{review.content}</Card.Text>
                                     <p><em>Written by {review.author.username || review.author} on {new Date(review.created_at).toLocaleDateString()}</em></p>
-                        
+
+                                    <div className="user-rating">
+                                        {[1, 2, 3, 4, 5].map((star) => (
+                                            <FaStar
+                                                key={star}
+                                                className={`star ${review.rating >= star ? 'filled' : ''}`}
+                                            />
+                                        ))}
+                                    </div>
+
                                     <Card.Footer className="text-muted">
                                         <p>
                                             {review.likes_count > 0 ? 
@@ -211,7 +262,7 @@ export default function ReviewTab() {
             </Row>
 
 
-            {/* modal messages for reviews posting twice or liking/dislike own reviews*/}
+            {/* modal messages */}
             <Modal show={showModal} onHide={handleCloseModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>Notice</Modal.Title>
