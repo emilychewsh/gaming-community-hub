@@ -1,4 +1,4 @@
-import { useState, useContext } from "react"
+import { useState, useContext, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { Form, Button, Alert, Container } from 'react-bootstrap'
 import { AppContext } from '../AppContext';
@@ -16,7 +16,13 @@ export default function SignUpPage() {
     const [error, setError] = useState(null)
     const navigate = useNavigate()
 
-    const { handleSignup  } = useContext(AppContext);
+    const { user, handleSignup  } = useContext(AppContext);
+
+    useEffect(() => {
+        if (user) {
+            navigate('/')
+        }
+    }, [user, navigate])
 
 
     const handleChange = (e) => {
