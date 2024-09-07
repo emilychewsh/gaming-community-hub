@@ -8,6 +8,7 @@ export default function GamePage() {
     const [gameData, setGameData] = useState([]); //list of games fetched from the server
     const [filteredGames, setFilteredGames] = useState([]); //based on search or genre 
     const [searchGame, setSearchGame] = useState("")
+    const [selectedGenre, setSelectedGenre] = useState(""); // to store the selected genre
     const navigate = useNavigate();
     const location = useLocation();
     const { user } = useContext(AppContext);
@@ -56,7 +57,10 @@ export default function GamePage() {
         let filtered = games
 
         if (genre) {
+            setSelectedGenre(genre)
             filtered = filtered.filter(game => game.genre === genre);
+        } else {
+            setSearchGame("") //clear h2 title if none selected
         }
         if (searchGame) {
             filtered = filtered.filter(game => game.title.toLowerCase().includes(searchGame.toLowerCase()));
@@ -118,6 +122,8 @@ export default function GamePage() {
     return (
         
         <Container className="game-container">
+            {selectedGenre && <h2>Game Genre - {selectedGenre.toUpperCase()}</h2>}
+            
             <InputGroup className="mb-3">
                 <Form.Control
                     placeholder="Search for games..."
