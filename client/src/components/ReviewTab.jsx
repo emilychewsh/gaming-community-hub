@@ -211,7 +211,14 @@ export default function ReviewTab() {
                         <span>({averageRating}/5)</span>
                     </div>
                 ) : (
-                    <p>No ratings yet</p>
+                    <div className="average-rating">
+                        <div className="star-rating">
+                            {[1, 2, 3, 4, 5].map((star) => (
+                                <FaStar key={star} className="star" />
+                            ))}
+                        </div>
+                        <span>(No ratings yet)</span>
+                    </div>
                 )}
             </Row>
             

@@ -60,7 +60,8 @@ export default function GamePage() {
             setSelectedGenre(genre)
             filtered = filtered.filter(game => game.genre === genre);
         } else {
-            setSearchGame("") //clear h2 title if none selected
+            setSelectedGenre("")
+            setSearchGame("") 
         }
         if (searchGame) {
             filtered = filtered.filter(game => game.title.toLowerCase().includes(searchGame.toLowerCase()));
